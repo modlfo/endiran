@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       160,          7]
-NotebookDataLength[   2019057,      33173]
-NotebookOptionsPosition[   2018144,      33139]
-NotebookOutlinePosition[   2018491,      33154]
-CellTagsIndexPosition[   2018448,      33151]
+NotebookDataLength[   2019106,      33174]
+NotebookOptionsPosition[   2018193,      33140]
+NotebookOutlinePosition[   2018540,      33155]
+CellTagsIndexPosition[   2018497,      33152]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -34,11 +34,12 @@ Cell["Load the RaspiCam library:", "Text",
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"camLib", " ", "=", " ", 
-   RowBox[{
-   "FindLibrary", "[", 
-    "\"\</home/pi/raspicam-0.1.6/build/src/libraspicam.so.0.1.6\>\"", "]"}]}],
-   ";"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"camLib", " ", "=", " ", 
+    RowBox[{
+    "FindLibrary", "[", 
+     "\"\</home/pi/raspicam-0.1.6/build/src/libraspicam.so.0.1.6\>\"", 
+     "]"}]}], ";"}], " "}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"capture", "=", 
    RowBox[{"LibraryFunctionLoad", "[", 
@@ -73,7 +74,7 @@ Cell[BoxData[{
    3.706522483987042*^9}, {3.706522577231742*^9, 3.7065225798058558`*^9}, {
    3.7065227731582737`*^9, 3.706522777582836*^9}, {3.706523631929184*^9, 
    3.706523632114649*^9}, 3.70652369825002*^9, {3.706523839679037*^9, 
-   3.70652385904321*^9}}],
+   3.70652385904321*^9}, 3.7066050376730266`*^9}],
 
 Cell[BoxData[""], "Input",
  CellChangeTimes->{3.706526426598748*^9}],
@@ -33156,22 +33157,22 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[582, 22, 465, 6, 90, "Title"],
 Cell[1050, 30, 181, 2, 30, "Text"],
-Cell[1234, 34, 2043, 41, 69, "Input"],
-Cell[3280, 77, 68, 1, 30, "Input"],
-Cell[3351, 80, 190, 2, 30, "Text"],
+Cell[1234, 34, 2092, 42, 69, "Input"],
+Cell[3329, 78, 68, 1, 30, "Input"],
+Cell[3400, 81, 190, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[3566, 86, 906, 13, 30, "Input"],
-Cell[4475, 101, 633957, 10396, 495, 233801, 3837, "CachedBoxData", "BoxData", \
+Cell[3615, 87, 906, 13, 30, "Input"],
+Cell[4524, 102, 633957, 10396, 495, 233801, 3837, "CachedBoxData", "BoxData", \
 "Output"]
 }, Open  ]],
-Cell[638447, 10500, 287, 5, 30, "Text"],
+Cell[638496, 10501, 287, 5, 30, "Text"],
 Cell[CellGroupData[{
-Cell[638759, 10509, 127, 2, 30, "Input"],
-Cell[638889, 10513, 149, 3, 30, "Output"]
+Cell[638808, 10510, 127, 2, 30, "Input"],
+Cell[638938, 10514, 149, 3, 30, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[639075, 10521, 244, 4, 30, "Input"],
-Cell[639322, 10527, 1378794, 22608, 495, 618273, 10140, "CachedBoxData", \
+Cell[639124, 10522, 244, 4, 30, "Input"],
+Cell[639371, 10528, 1378794, 22608, 495, 618273, 10140, "CachedBoxData", \
 "BoxData", "Output"]
 }, Open  ]]
 }, Open  ]]
