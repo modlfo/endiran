@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       160,          7]
-NotebookDataLength[   2019009,      33173]
-NotebookOptionsPosition[   2018096,      33139]
-NotebookOutlinePosition[   2018443,      33154]
-CellTagsIndexPosition[   2018400,      33151]
+NotebookDataLength[   2019032,      33173]
+NotebookOptionsPosition[   2018119,      33139]
+NotebookOutlinePosition[   2018466,      33154]
+CellTagsIndexPosition[   2018423,      33151]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -28,9 +28,9 @@ Cell["Capture Pictures with the Raspberry Pi", "Title",
   3.703944042016136*^9}, {3.703998470173399*^9, 3.703998488976171*^9}, {
   3.7059034140323267`*^9, 3.705903414175335*^9}}],
 
-Cell["Load the RaspiCam library:", "Text",
+Cell["Load the RaspiCam library: ", "Text",
  CellChangeTimes->{{3.706526386910654*^9, 3.70652640709553*^9}, 
-   3.706526483663459*^9}],
+   3.706526483663459*^9, 3.706602792715938*^9}],
 
 Cell[BoxData[{
  RowBox[{
@@ -33155,23 +33155,23 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[582, 22, 465, 6, 90, "Title"],
-Cell[1050, 30, 133, 2, 30, "Text"],
-Cell[1186, 34, 2043, 41, 69, "Input"],
-Cell[3232, 77, 68, 1, 30, "Input"],
-Cell[3303, 80, 190, 2, 30, "Text"],
+Cell[1050, 30, 156, 2, 30, "Text"],
+Cell[1209, 34, 2043, 41, 69, "Input"],
+Cell[3255, 77, 68, 1, 30, "Input"],
+Cell[3326, 80, 190, 2, 30, "Text"],
 Cell[CellGroupData[{
-Cell[3518, 86, 906, 13, 30, "Input"],
-Cell[4427, 101, 633957, 10396, 495, 233801, 3837, "CachedBoxData", "BoxData", \
+Cell[3541, 86, 906, 13, 30, "Input"],
+Cell[4450, 101, 633957, 10396, 495, 233801, 3837, "CachedBoxData", "BoxData", \
 "Output"]
 }, Open  ]],
-Cell[638399, 10500, 287, 5, 30, "Text"],
+Cell[638422, 10500, 287, 5, 30, "Text"],
 Cell[CellGroupData[{
-Cell[638711, 10509, 127, 2, 30, "Input"],
-Cell[638841, 10513, 149, 3, 30, "Output"]
+Cell[638734, 10509, 127, 2, 30, "Input"],
+Cell[638864, 10513, 149, 3, 30, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[639027, 10521, 244, 4, 30, "Input"],
-Cell[639274, 10527, 1378794, 22608, 495, 618273, 10140, "CachedBoxData", \
+Cell[639050, 10521, 244, 4, 30, "Input"],
+Cell[639297, 10527, 1378794, 22608, 495, 618273, 10140, "CachedBoxData", \
 "BoxData", "Output"]
 }, Open  ]]
 }, Open  ]]
