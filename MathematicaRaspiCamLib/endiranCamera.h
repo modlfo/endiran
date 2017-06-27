@@ -55,8 +55,31 @@ public:
 
         thecamera->setWidth ( width );
         thecamera->setHeight ( height );
-        thecamera->setISO(iso);
-        thecamera->setBrightness(50);
+
+
+
+
+        thecamera->setBrightness ( 50 );
+        thecamera->setRotation ( 0);
+
+        thecamera->setISO ( 400 );
+
+        thecamera->setSharpness ( 0 );
+
+        thecamera->setContrast ( 0 );
+
+        thecamera->setSaturation ( 0);
+
+        thecamera->setExposure ( raspicam::RASPICAM_EXPOSURE_AUTO );
+ thecamera->setVideoStabilization(true);
+
+
+
+
+
+ thecamera->open();
+
+
 
         if ( !thecamera->open() ) {
             //  return -1;
