@@ -1,3 +1,3 @@
 [submodule "RaspiCamLib"]
 	path = RaspiCamLib
-	url = https://github.com/cedricve/raspicam.git
+	url = https://github.com/nimal/RaspiCamLib
