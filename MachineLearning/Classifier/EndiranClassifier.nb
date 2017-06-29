@@ -1,90 +1,438 @@
-Notebook[{Cell[
-CellGroupData[{Cell[
-BoxData[{RowBox[{"TraningSet"," ","="," ","Values","[","Databin","[","\"lM2syacG\"","]","]",";"}],"\n",RowBox[
-{"TrainingSetRule"," ","="," ","MapThread","[","Rule",","," ","{","TraningSet","[","[","All",","," ","1","]","]",","," ","TraningSet","[","[","All",","," ","2","]","]","}","]"}]}],
-"Input",CellID->1,CellLabel->"In[1]:= "],Cell[
-BoxData[RowBox[{"{",RowBox[{RowBox[
-{GraphicsBox[TagBox[RasterBox[CompressedData["1:eJxtUctOw0AMnH1ls0mbPqgEHBDwF1w5ci3iA1pRKi5FapEQX82zPBpaM86xrSM5yY7tGc+ejx+GdxbAImcajp4u5/PR83WXPzezxf10Nrm9mj1OppP5xVjLFDjDbghKWEGbD9Iq7uAvPbsUVjkUx8Ay38a73+sMsV4jASes24k3z9GZVKpAXvcJKICWsF0kVxVbUWOADizRtYPfbMMtUmaAE+FL9vCjdERXBjBfglACnl3MeRcuwfJTPnRv+UNuiGUpADbRNJ5WKqsxT+rCUik80bYqynpAH/Kr3io9S0seOAfLKYmEFmQ84pRy9Uk4Wq5CaOBRZAi0u5F7gHrDhGb3w2iarWDiuyh9jEZEHUKRo+yjuUmPalOLNZHAjw6JXIuaUYREaQGVNsN1OFMCTrmUV5cCzD+WD1Oi"],
-{{0,16},{32,0}},{0,255},ColorFunction->GrayLevel],BoxForm`ImageTag["Byte",ColorSpace->"Grayscale",
-ImageResolution->{72,72},Interleaving->None,MetaInformation->Association["Exif"->Association[
-"Software"->"Created with the Wolfram Language : www.wolfram.com"]]],Selectable->False],
-DefaultBaseStyle->"ImageGraphics",ImageSizeRaw->{32,16},PlotRange->{{0,32},{0,16}},
-BoxID->"{\"type\":\"Image\",\"message\":\"SizeLimitReached\",\"imageData\":{\"imageSource\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAgpJREFUSIntVMuyqjAQnARISFAUpUpdWP7/1/nEBxH6LnTmJp6lZ3lSRVEMk0x3T0+I/tbfIsI3DwAQEaqqAhFBay2x6XSavIkIzjn0fQ9rLce+A7Df79E0DbTW6LpOivM7yzIQEbz32Gw2sq/rOpRl+T2A+XyO2+2GYRhgjAERwVqLEAKGYRDWnL/dbhOAXwMgIhyPR+R5nshtjAEA1HUtQOO2HQ6H3wPAbLz3EptMJgCQsOf1lp7Bfg8ghAAiQtu2ICLMZjMxZFx4GAbxRJ7nGMfxewDMlL/ZB2xAXvG/OPYrChC9xpDZceG+76GUkhylFK7XqxQvigLE88uyxMzieFmWYqQsy6S3WuskFwDO53M85xJ/Pp8gIpRlCaUU1/svnXPuheod01rDOSe9JKLkYHb4p6yx4/lfCAHee2itE7MSM4wL8yjFZjLGoGkayVksFnL44/GQeKxSDCoGy6q/z3glc/+01kkrnHNJH1mNuJfr9TpRpqoq9H2Py+WSFLfWyn6eGIqLtW0rxb334lpWh+/x2PX8LJdLGcn3eEnsU1l+VqsVyFqbMPw0oVIK1lqcTqekcMyKz+D1eSExIb6AqqqSFooJY+OwCnVdYxxHhBAAAFprARQXud/vP1Sx1iKesNjUDKgoChAH2HAsd13XP1izXziXJQUg+3a7neQaY4RMfEFxrlIK/wCb/dNkQP5RjwAAAABJRU5ErkJggg==\",\"boundingBox\":{\"width\":32,\"height\":20,\"baseline\":15}},\"plotRange\":[0,1,0,1],\"requestedImageSize\":null}"],"\[Rule]","\"forward\""}],",",RowBox[
-{GraphicsBox[TagBox[RasterBox[CompressedData["1:eJxtUctOw0AMnH1ls0mbPqgEHBDwF1w5ci3iA1pRKi5FapEQX82zPBpaM86xrSM5yY7tGc+ejx+GdxbAImcajp4u5/PR83WXPzezxf10Nrm9mj1OppP5xVjLFDjDbghKWEGbD9Iq7uAvPbsUVjkUx8Ay38a73+sMsV4jASes24k3z9GZVKpAXvcJKICWsF0kVxVbUWOADizRtYPfbMMtUmaAE+FL9vCjdERXBjBfglACnl3MeRcuwfJTPnRv+UNuiGUpADbRNJ5WKqsxT+rCUik80bYqynpAH/Kr3io9S0seOAfLKYmEFmQ84pRy9Uk4Wq5CaOBRZAi0u5F7gHrDhGb3w2iarWDiuyh9jEZEHUKRo+yjuUmPalOLNZHAjw6JXIuaUYREaQGVNsN1OFMCTrmUV5cCzD+WD1Oi"],
-{{0,16},{32,0}},{0,255},ColorFunction->GrayLevel],BoxForm`ImageTag["Byte",ColorSpace->"Grayscale",
-ImageResolution->{72,72},Interleaving->None,MetaInformation->Association["Exif"->Association[
-"Software"->"Created with the Wolfram Language : www.wolfram.com"]]],Selectable->False],
-DefaultBaseStyle->"ImageGraphics",ImageSizeRaw->{32,16},PlotRange->{{0,32},{0,16}},
-BoxID->"{\"type\":\"Image\",\"message\":\"SizeLimitReached\",\"imageData\":{\"imageSource\":\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAgpJREFUSIntVMuyqjAQnARISFAUpUpdWP7/1/nEBxH6LnTmJp6lZ3lSRVEMk0x3T0+I/tbfIsI3DwAQEaqqAhFBay2x6XSavIkIzjn0fQ9rLce+A7Df79E0DbTW6LpOivM7yzIQEbz32Gw2sq/rOpRl+T2A+XyO2+2GYRhgjAERwVqLEAKGYRDWnL/dbhOAXwMgIhyPR+R5nshtjAEA1HUtQOO2HQ6H3wPAbLz3EptMJgCQsOf1lp7Bfg8ghAAiQtu2ICLMZjMxZFx4GAbxRJ7nGMfxewDMlL/ZB2xAXvG/OPYrChC9xpDZceG+76GUkhylFK7XqxQvigLE88uyxMzieFmWYqQsy6S3WuskFwDO53M85xJ/Pp8gIpRlCaUU1/svnXPuheod01rDOSe9JKLkYHb4p6yx4/lfCAHee2itE7MSM4wL8yjFZjLGoGkayVksFnL44/GQeKxSDCoGy6q/z3glc/+01kkrnHNJH1mNuJfr9TpRpqoq9H2Py+WSFLfWyn6eGIqLtW0rxb334lpWh+/x2PX8LJdLGcn3eEnsU1l+VqsVyFqbMPw0oVIK1lqcTqekcMyKz+D1eSExIb6AqqqSFooJY+OwCnVdYxxHhBAAAFprARQXud/vP1Sx1iKesNjUDKgoChAH2HAsd13XP1izXziXJQUg+3a7neQaY4RMfEFxrlIK/wCb/dNkQP5RjwAAAABJRU5ErkJggg==\",\"boundingBox\":{\"width\":32,\"height\":20,\"baseline\":15}},\"plotRange\":[0,1,0,1],\"requestedImageSize\":null}"],"\[Rule]","\"Left\""}]}],"}"}],
-StandardForm],"Output",CellID->8,CellLabel->"Out[2]= "]},Open]],Cell[
-CellGroupData[
-{Cell[
-BoxData[RowBox[{"c1"," ","="," ",RowBox[{"Classify","[",RowBox[{"TrainingSetRule",","," ",RowBox[
-{"Method"," ","\[Rule]"," ","\"NeuralNetwork\""}]}],"]"}]}]],"Input",CellID->3,CellLabel->"In[3]:= "],Cell[
-BoxData[
-TagBox[TemplateBox[{RowBox[{StyleBox[TagBox["ClassifierFunction","SummaryHead"],"NonInterpretableSummary"],StyleBox[
-"[","NonInterpretableSummary"],DynamicModuleBox[{Set[Typeset`open$$,True]},PanelBox[
-PaneSelectorBox[{False->GridBox[{{PaneBox[ButtonBox[DynamicBox[FEPrivate`FrontEndResource[
-"FEBitmaps","SquarePlusIconMedium"]],RuleDelayed[ButtonFunction,Set[Typeset`open$$,
-True]],Appearance->None,Evaluator->Automatic,Method->"Preemptive"],Alignment->{Center,Center},
-ImageSize->Dynamic[{Automatic,Times[3.5,CurrentValue["FontCapHeight"],Power[AbsoluteCurrentValue[
-Magnification],-1]]}]],GraphicsBox[{{PointSize[0.13],GrayLevel[0.45],PointBox[{{0.9821769431797024,-0.440194219686987},{1.1339776261519132,0.8056918676854272},{0.5279892326667741,0.6574306661126254},{0.022147046479890797,1.4937877187998898}}],GrayLevel[
-0.7],PointBox[{{-0.9815166384819979,0.15045697525228735},{-0.5923526886966953,-0.33441771553094035},{-0.005656646679640442,-1.462421365651345},{-1.0734370436522753,-1.3729645043477454}}]},{GrayLevel[
-0.55],AbsoluteThickness[1.5],LineBox[{{-1.0,1.5},{1,-1.6}}]}},{Axes->{False,False},AxesLabel->{None,None},AxesOrigin->{0,0},BaseStyle->{FontFamily->"Arial",AbsoluteThickness[
-1.5]},DisplayFunction->Identity,Frame->{{True,True},{True,True}},FrameLabel->{{None,None},{None,None}},FrameStyle->Directive[
-Thickness[Tiny],GrayLevel[0.7]],FrameTicks->{{None,None},{None,None}},GridLines->{None,None},LabelStyle->{FontFamily->"Arial"},Method->{"ScalingFunctions"->None},PlotRange->{{-1.0,1},{-1.3,1.1}},PlotRangeClipping->True,PlotRangePadding->{{0.7,0.7},{0.7,0.7}},Ticks->{None,None}},
-Axes->False,AspectRatio->1,ImageSize->Dynamic[{Automatic,Times[3.5,CurrentValue["FontCapHeight"],
-Power[AbsoluteCurrentValue[Magnification],-1]]}],Frame->True,FrameTicks->None,FrameStyle->Directive[
-Opacity[0.5],Thickness[Tiny],RGBColor[0.368417,0.506779,0.709798]],Background->GrayLevel[
-0.94]],GridBox[{{RowBox[{TagBox["\"Input type: \"","SummaryItemAnnotation"],"\[InvisibleSpace]",TagBox[
-"\"Image\"","SummaryItem"]}]},{RowBox[{TagBox["\"Classes: \"","SummaryItemAnnotation"],"\[InvisibleSpace]",TagBox[
-TemplateBox[{",","\",\"","\"forward\"","\"Left\""},"RowWithSeparators"],"SummaryItem"]}]}},
-GridBoxAlignment->{"Columns"->{{Left}},"Rows"->{{Automatic}}},AutoDelete->False,GridBoxItemSize->{"Columns"->{{Automatic}},"Rows"->{{Automatic}}},
-GridBoxSpacings->{"Columns"->{{2}},"Rows"->{{Automatic}}},BaseStyle->{ShowStringCharacters->False,NumberMarks->False,PrintPrecision->3,ShowSyntaxStyles->False}]}},
-GridBoxAlignment->{"Rows"->{{Top}}},AutoDelete->False,GridBoxItemSize->{"Columns"->{{Automatic}},"Rows"->{{Automatic}}},
-BaselinePosition->{1,1}],True->GridBox[{{PaneBox[ButtonBox[DynamicBox[FEPrivate`FrontEndResource[
-"FEBitmaps","SquareMinusIconMedium"]],RuleDelayed[ButtonFunction,Set[Typeset`open$$,
-False]],Appearance->None,Evaluator->Automatic,Method->"Preemptive"],Alignment->{Center,Center},
-ImageSize->Dynamic[{Automatic,Times[3.5,CurrentValue["FontCapHeight"],Power[AbsoluteCurrentValue[
-Magnification],-1]]}]],GraphicsBox[{{PointSize[0.13],GrayLevel[0.45],PointBox[{{0.9821769431797024,-0.440194219686987},{1.1339776261519132,0.8056918676854272},{0.5279892326667741,0.6574306661126254},{0.022147046479890797,1.4937877187998898}}],GrayLevel[
-0.7],PointBox[{{-0.9815166384819979,0.15045697525228735},{-0.5923526886966953,-0.33441771553094035},{-0.005656646679640442,-1.462421365651345},{-1.0734370436522753,-1.3729645043477454}}]},{GrayLevel[
-0.55],AbsoluteThickness[1.5],LineBox[{{-1.0,1.5},{1,-1.6}}]}},{Axes->{False,False},AxesLabel->{None,None},AxesOrigin->{0,0},BaseStyle->{FontFamily->"Arial",AbsoluteThickness[
-1.5]},DisplayFunction->Identity,Frame->{{True,True},{True,True}},FrameLabel->{{None,None},{None,None}},FrameStyle->Directive[
-Thickness[Tiny],GrayLevel[0.7]],FrameTicks->{{None,None},{None,None}},GridLines->{None,None},LabelStyle->{FontFamily->"Arial"},Method->{"ScalingFunctions"->None},PlotRange->{{-1.0,1},{-1.3,1.1}},PlotRangeClipping->True,PlotRangePadding->{{0.7,0.7},{0.7,0.7}},Ticks->{None,None}},
-Axes->False,AspectRatio->1,ImageSize->Dynamic[{Automatic,Times[3.5,CurrentValue["FontCapHeight"],
-Power[AbsoluteCurrentValue[Magnification],-1]]}],Frame->True,FrameTicks->None,FrameStyle->Directive[
-Opacity[0.5],Thickness[Tiny],RGBColor[0.368417,0.506779,0.709798]],Background->GrayLevel[
-0.94]],GridBox[{{RowBox[{TagBox["\"Input type: \"","SummaryItemAnnotation"],"\[InvisibleSpace]",TagBox[
-"\"Image\"","SummaryItem"]}]},{RowBox[{TagBox["\"Classes: \"","SummaryItemAnnotation"],"\[InvisibleSpace]",TagBox[
-TemplateBox[{",","\",\"","\"forward\"","\"Left\""},"RowWithSeparators"],"SummaryItem"]}]},{RowBox[
-{TagBox["\"Method: \"","SummaryItemAnnotation"],"\[InvisibleSpace]",TagBox["\"NeuralNetwork\"",
-"SummaryItem"]}]},{RowBox[{TagBox["\"Number of training examples: \"","SummaryItemAnnotation"],"\[InvisibleSpace]",TagBox[
-"2","SummaryItem"]}]}},GridBoxAlignment->{"Columns"->{{Left}},"Rows"->{{Automatic}}},
-AutoDelete->False,GridBoxItemSize->{"Columns"->{{Automatic}},"Rows"->{{Automatic}}},
-GridBoxSpacings->{"Columns"->{{2}},"Rows"->{{Automatic}}},BaseStyle->{ShowStringCharacters->False,NumberMarks->False,PrintPrecision->3,ShowSyntaxStyles->False}]}},
-GridBoxAlignment->{"Rows"->{{Top}}},AutoDelete->False,GridBoxItemSize->{"Columns"->{{Automatic}},"Rows"->{{Automatic}}},
-BaselinePosition->{1,1}]},Dynamic[Typeset`open$$],ImageSize->Automatic],BaselinePosition->Baseline],
-RuleDelayed[DynamicModuleValues,{}]],StyleBox["]","NonInterpretableSummary"]}]},"CopyTag",
-DisplayFunction->Function[Slot[1]],InterpretationFunction->Function["ClassifierFunction[\[Ellipsis]]"]],
-False,Selectable->False,Editable->False,SelectWithContents->True],StandardForm],"Output",
-CellID->16,CellLabel->"Out[3]= "]},Open]],Cell[
-CellGroupData[{Cell[
-BoxData[RowBox[
-{"file"," ","="," ",RowBox[{"File","[","\"Classifier.m\"","]"}]}]],"Input",CellID->27,
-CellLabel->"In[4]:= "],Cell[
-BoxData[RowBox[{"File","[",TemplateBox[{"\"Classifier.m\""},
-"FileArgument"],"]"}],StandardForm],"Output",CellID->22,CellLabel->"Out[4]= "]},Open]],Cell[
-CellGroupData[
-{Cell[
-BoxData[RowBox[{"Put","[",RowBox[{"c1",","," ",RowBox[{"CloudObject","[","\"Classifier\"","]"}]}],"]"}]],
-"Input",CellID->67,CellLabel->"In[6]:= "],Cell[
-BoxData[TagBox[InterpretationBox[
-RowBox[{"CloudObject","[",TagBox[ButtonBox[PaneSelectorBox[{False->"\"https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-2dca7a46bbc3/Classifier\"",True->StyleBox[
-"\"https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-2dca7a46bbc3/Classifier\"",
-{"HyperlinkActive"}]},Dynamic[CurrentValue["MouseOver"]],BaseStyle->{"Hyperlink"},
-FrameMargins->0,ImageSize->Automatic],BaseStyle->"Hyperlink",ButtonData->{URL["https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-2dca7a46bbc3/Classifier"],None},
-ButtonNote->"https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-2dca7a46bbc3/Classifier"],
-Function[Annotation[Slot[1],"https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-2dca7a46bbc3/Classifier",
-"Hyperlink"]]],"]"}],CloudObject["https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-2dca7a46bbc3/Classifier"]],
-"RawBoxes"],StandardForm],"Output",CellID->33,CellLabel->"Out[6]= "]},Open]]},StyleDefinitions->"Default.nb",
-FrontEndVersion->"10.0 for Wolfram Cloud Platform (June 2 2014)"]
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     17406,        428]
+NotebookOptionsPosition[     16578,        389]
+NotebookOutlinePosition[     16927,        404]
+CellTagsIndexPosition[     16884,        401]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Create a classifier cloud object", "Title",
+ CellChangeTimes->{{3.7077147269014335`*^9, 3.707714763475525*^9}, 
+   3.707715146936458*^9, {3.707715334415181*^9, 3.707715361758745*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"TraningSet", " ", "=", " ", 
+   RowBox[{"Values", "[", 
+    RowBox[{"Databin", "[", "\"\<mLZ2ImvC\>\"", "]"}], "]"}]}], ";"}], "\n", 
+ RowBox[{"TrainingSetRule", " ", "=", " ", 
+  RowBox[{"MapThread", "[", 
+   RowBox[{"Rule", ",", " ", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"TraningSet", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", " ", "1"}], "]"}], "]"}], ",", " ", 
+      RowBox[{"TraningSet", "[", 
+       RowBox[{"[", 
+        RowBox[{"All", ",", " ", "2"}], "]"}], "]"}]}], "}"}]}], 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{3.7077152917767425`*^9},
+ CellID->1],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    GraphicsBox[
+     TagBox[RasterBox[CompressedData["
+1:eJxtUctOw0AMnH1ls0mbPqgEHBDwF1w5ci3iA1pRKi5FapEQX82zPBpaM86x
+rSM5yY7tGc+ejx+GdxbAImcajp4u5/PR83WXPzezxf10Nrm9mj1OppP5xVjL
+FDjDbghKWEGbD9Iq7uAvPbsUVjkUx8Ay38a73+sMsV4jASes24k3z9GZVKpA
+XvcJKICWsF0kVxVbUWOADizRtYPfbMMtUmaAE+FL9vCjdERXBjBfglACnl3M
+eRcuwfJTPnRv+UNuiGUpADbRNJ5WKqsxT+rCUik80bYqynpAH/Kr3io9S0se
+OAfLKYmEFmQ84pRy9Uk4Wq5CaOBRZAi0u5F7gHrDhGb3w2iarWDiuyh9jEZE
+HUKRo+yjuUmPalOLNZHAjw6JXIuaUYREaQGVNsN1OFMCTrmUV5cCzD+WD1Oi
+
+       "], {{0, 16}, {32, 0}}, {0, 255},
+       ColorFunction->GrayLevel],
+      BoxForm`ImageTag[
+      "Byte", ColorSpace -> "Grayscale", ImageResolution -> {72, 72}, 
+       Interleaving -> None, MetaInformation -> 
+       Association[
+        "Exif" -> Association[
+          "Software" -> 
+           "Created with the Wolfram Language : www.wolfram.com"]]],
+      Selectable->False],
+     BoxID -> 
+     "{\"type\":\"Image\",\"message\":\"SizeLimitReached\",\"imageData\":{\"\
+imageSource\":\"data:image/png;base64,\
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAA\
+AOxAAADsQBlSsOGwAAAgpJREFUSIntVMuyqjAQnARISFAUpUpdWP7/1/\
+nEBxH6LnTmJp6lZ3lSRVEMk0x3T0+I/tbfIsI3DwAQEaqqAhFBay2x6XSavIkIzjn0fQ9rLce+\
+A7Df79E0DbTW6LpOivM7yzIQEbz32Gw2sq/rOpRl+T2A+XyO2+2GYRhgjAERwVqLEAKGYRDWnL/\
+dbhOAXwMgIhyPR+\
+R5nshtjAEA1HUtQOO2HQ6H3wPAbLz3EptMJgCQsOf1lp7Bfg8ghAAiQtu2ICLMZjMxZFx4GAbxRJ7n\
+GMfxewDMlL/ZB2xAXvG/OPYrChC9xpDZceG+\
+76GUkhylFK7XqxQvigLE88uyxMzieFmWYqQsy6S3WuskFwDO53M85xJ/Pp8gIpRlCaUU1/\
+svnXPuheod01rDOSe9JKLkYHb4p6yx4/lfCAHee2itE7MSM4wL8yjFZjLGoGkayVksFnL44/\
+GQeKxSDCoGy6q/z3glc/+01kkrnHNJH1mNuJfr9TpRpqoq9H2Py+\
+WSFLfWyn6eGIqLtW0rxb334lpWh+/x2PX8LJdLGcn3eEnsU1l+\
+VqsVyFqbMPw0oVIK1lqcTqekcMyKz+D1eSExIb6AqqqSFooJY+OwCnVdYxxHhBAAAFprARQXud/\
+vP1Sx1iKesNjUDKgoChAH2HAsd13XP1izXziXJQUg+3a7neQaY4RMfEFxrlIK/wCb/\
+dNkQP5RjwAAAABJRU5ErkJggg==\",\"boundingBox\":{\"width\":32,\"height\":20,\"\
+baseline\":15}},\"plotRange\":[0,1,0,1],\"requestedImageSize\":null}",
+     DefaultBaseStyle->"ImageGraphics",
+     ImageSizeRaw->{32, 16},
+     PlotRange->{{0, 32}, {0, 16}}], "\[Rule]", "\<\"forward\"\>"}], ",", 
+   RowBox[{
+    GraphicsBox[
+     TagBox[RasterBox[CompressedData["
+1:eJxtUctOw0AMnH1ls0mbPqgEHBDwF1w5ci3iA1pRKi5FapEQX82zPBpaM86x
+rSM5yY7tGc+ejx+GdxbAImcajp4u5/PR83WXPzezxf10Nrm9mj1OppP5xVjL
+FDjDbghKWEGbD9Iq7uAvPbsUVjkUx8Ay38a73+sMsV4jASes24k3z9GZVKpA
+XvcJKICWsF0kVxVbUWOADizRtYPfbMMtUmaAE+FL9vCjdERXBjBfglACnl3M
+eRcuwfJTPnRv+UNuiGUpADbRNJ5WKqsxT+rCUik80bYqynpAH/Kr3io9S0se
+OAfLKYmEFmQ84pRy9Uk4Wq5CaOBRZAi0u5F7gHrDhGb3w2iarWDiuyh9jEZE
+HUKRo+yjuUmPalOLNZHAjw6JXIuaUYREaQGVNsN1OFMCTrmUV5cCzD+WD1Oi
+
+       "], {{0, 16}, {32, 0}}, {0, 255},
+       ColorFunction->GrayLevel],
+      BoxForm`ImageTag[
+      "Byte", ColorSpace -> "Grayscale", ImageResolution -> {72, 72}, 
+       Interleaving -> None, MetaInformation -> 
+       Association[
+        "Exif" -> Association[
+          "Software" -> 
+           "Created with the Wolfram Language : www.wolfram.com"]]],
+      Selectable->False],
+     BoxID -> 
+     "{\"type\":\"Image\",\"message\":\"SizeLimitReached\",\"imageData\":{\"\
+imageSource\":\"data:image/png;base64,\
+iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAYAAADskT9PAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAA\
+AOxAAADsQBlSsOGwAAAgpJREFUSIntVMuyqjAQnARISFAUpUpdWP7/1/\
+nEBxH6LnTmJp6lZ3lSRVEMk0x3T0+I/tbfIsI3DwAQEaqqAhFBay2x6XSavIkIzjn0fQ9rLce+\
+A7Df79E0DbTW6LpOivM7yzIQEbz32Gw2sq/rOpRl+T2A+XyO2+2GYRhgjAERwVqLEAKGYRDWnL/\
+dbhOAXwMgIhyPR+\
+R5nshtjAEA1HUtQOO2HQ6H3wPAbLz3EptMJgCQsOf1lp7Bfg8ghAAiQtu2ICLMZjMxZFx4GAbxRJ7n\
+GMfxewDMlL/ZB2xAXvG/OPYrChC9xpDZceG+\
+76GUkhylFK7XqxQvigLE88uyxMzieFmWYqQsy6S3WuskFwDO53M85xJ/Pp8gIpRlCaUU1/\
+svnXPuheod01rDOSe9JKLkYHb4p6yx4/lfCAHee2itE7MSM4wL8yjFZjLGoGkayVksFnL44/\
+GQeKxSDCoGy6q/z3glc/+01kkrnHNJH1mNuJfr9TpRpqoq9H2Py+\
+WSFLfWyn6eGIqLtW0rxb334lpWh+/x2PX8LJdLGcn3eEnsU1l+\
+VqsVyFqbMPw0oVIK1lqcTqekcMyKz+D1eSExIb6AqqqSFooJY+OwCnVdYxxHhBAAAFprARQXud/\
+vP1Sx1iKesNjUDKgoChAH2HAsd13XP1izXziXJQUg+3a7neQaY4RMfEFxrlIK/wCb/\
+dNkQP5RjwAAAABJRU5ErkJggg==\",\"boundingBox\":{\"width\":32,\"height\":20,\"\
+baseline\":15}},\"plotRange\":[0,1,0,1],\"requestedImageSize\":null}",
+     DefaultBaseStyle->"ImageGraphics",
+     ImageSizeRaw->{32, 16},
+     PlotRange->{{0, 32}, {0, 16}}], "\[Rule]", "\<\"Left\"\>"}]}], 
+  "}"}]], "Output",
+ CellID->8]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"c1", " ", "=", " ", 
+  RowBox[{"Classify", "[", 
+   RowBox[{"TrainingSetRule", ",", " ", 
+    RowBox[{"Method", " ", "\[Rule]", " ", "\"\<NeuralNetwork\>\""}]}], 
+   "]"}]}]], "Input",
+ CellID->3],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{RowBox[{
+      StyleBox[
+       TagBox["ClassifierFunction", "SummaryHead"], 
+       "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{Typeset`open$$ = True}, 
+       PanelBox[
+        PaneSelectorBox[{False -> GridBox[{{
+              PaneBox[
+               ButtonBox[
+                DynamicBox[
+                 FEPrivate`FrontEndResource[
+                 "FEBitmaps", "SquarePlusIconMedium"]], 
+                ButtonFunction :> (Typeset`open$$ = True), Appearance -> None,
+                 Evaluator -> Automatic, Method -> "Preemptive"], 
+               Alignment -> {Center, Center}, ImageSize -> 
+               Dynamic[{
+                 Automatic, 3.5 CurrentValue["FontCapHeight"]/
+                  AbsoluteCurrentValue[Magnification]}]], 
+              GraphicsBox[{{
+                 PointSize[0.13], 
+                 GrayLevel[0.45], 
+                 
+                 PointBox[{{0.9821769431797024, -0.440194219686987}, {
+                  1.1339776261519132`, 0.8056918676854272}, {
+                  0.5279892326667741, 0.6574306661126254}, {
+                  0.022147046479890797`, 1.4937877187998898`}}], 
+                 GrayLevel[0.7], 
+                 
+                 PointBox[{{-0.9815166384819979, 
+                  0.15045697525228735`}, {-0.5923526886966953, \
+-0.33441771553094035`}, {-0.005656646679640442, -1.462421365651345}, \
+{-1.0734370436522753`, -1.3729645043477454`}}]}, {
+                 GrayLevel[0.55], 
+                 AbsoluteThickness[1.5], 
+                 LineBox[{{-1., 1.5}, {1, -1.6}}]}}, {
+               Axes -> {False, False}, AxesLabel -> {None, None}, 
+                AxesOrigin -> {0, 0}, BaseStyle -> {FontFamily -> "Arial", 
+                  AbsoluteThickness[1.5]}, DisplayFunction -> Identity, 
+                Frame -> {{True, True}, {True, True}}, 
+                FrameLabel -> {{None, None}, {None, None}}, FrameStyle -> 
+                Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.7]], FrameTicks -> {{None, None}, {None, None}},
+                 GridLines -> {None, None}, 
+                LabelStyle -> {FontFamily -> "Arial"}, 
+                Method -> {"ScalingFunctions" -> None}, 
+                PlotRange -> {{-1., 1}, {-1.3, 1.1}}, PlotRangeClipping -> 
+                True, PlotRangePadding -> {{0.7, 0.7}, {0.7, 0.7}}, 
+                Ticks -> {None, None}}, Axes -> False, AspectRatio -> 1, 
+               ImageSize -> 
+               Dynamic[{
+                 Automatic, 3.5 CurrentValue["FontCapHeight"]/
+                  AbsoluteCurrentValue[Magnification]}], Frame -> True, 
+               FrameTicks -> None, FrameStyle -> Directive[
+                 Opacity[0.5], 
+                 Thickness[Tiny], 
+                 RGBColor[0.368417, 0.506779, 0.709798]], Background -> 
+               GrayLevel[0.94]], 
+              GridBox[{{
+                 RowBox[{
+                   TagBox["\"Input type: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Image\"", "SummaryItem"]}]}, {
+                 RowBox[{
+                   TagBox["\"Classes: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                    
+                    TemplateBox[{",", "\",\"", "\"forward\"", "\"Left\""}, 
+                    "RowWithSeparators"], "SummaryItem"]}]}}, 
+               GridBoxAlignment -> {
+                "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+               False, GridBoxItemSize -> {
+                "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+               GridBoxSpacings -> {
+                "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+               BaseStyle -> {
+                ShowStringCharacters -> False, NumberMarks -> False, 
+                 PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+            GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+            GridBoxItemSize -> {
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+            BaselinePosition -> {1, 1}], True -> GridBox[{{
+              PaneBox[
+               ButtonBox[
+                DynamicBox[
+                 FEPrivate`FrontEndResource[
+                 "FEBitmaps", "SquareMinusIconMedium"]], 
+                ButtonFunction :> (Typeset`open$$ = False), Appearance -> 
+                None, Evaluator -> Automatic, Method -> "Preemptive"], 
+               Alignment -> {Center, Center}, ImageSize -> 
+               Dynamic[{
+                 Automatic, 3.5 CurrentValue["FontCapHeight"]/
+                  AbsoluteCurrentValue[Magnification]}]], 
+              GraphicsBox[{{
+                 PointSize[0.13], 
+                 GrayLevel[0.45], 
+                 
+                 PointBox[{{0.9821769431797024, -0.440194219686987}, {
+                  1.1339776261519132`, 0.8056918676854272}, {
+                  0.5279892326667741, 0.6574306661126254}, {
+                  0.022147046479890797`, 1.4937877187998898`}}], 
+                 GrayLevel[0.7], 
+                 
+                 PointBox[{{-0.9815166384819979, 
+                  0.15045697525228735`}, {-0.5923526886966953, \
+-0.33441771553094035`}, {-0.005656646679640442, -1.462421365651345}, \
+{-1.0734370436522753`, -1.3729645043477454`}}]}, {
+                 GrayLevel[0.55], 
+                 AbsoluteThickness[1.5], 
+                 LineBox[{{-1., 1.5}, {1, -1.6}}]}}, {
+               Axes -> {False, False}, AxesLabel -> {None, None}, 
+                AxesOrigin -> {0, 0}, BaseStyle -> {FontFamily -> "Arial", 
+                  AbsoluteThickness[1.5]}, DisplayFunction -> Identity, 
+                Frame -> {{True, True}, {True, True}}, 
+                FrameLabel -> {{None, None}, {None, None}}, FrameStyle -> 
+                Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.7]], FrameTicks -> {{None, None}, {None, None}},
+                 GridLines -> {None, None}, 
+                LabelStyle -> {FontFamily -> "Arial"}, 
+                Method -> {"ScalingFunctions" -> None}, 
+                PlotRange -> {{-1., 1}, {-1.3, 1.1}}, PlotRangeClipping -> 
+                True, PlotRangePadding -> {{0.7, 0.7}, {0.7, 0.7}}, 
+                Ticks -> {None, None}}, Axes -> False, AspectRatio -> 1, 
+               ImageSize -> 
+               Dynamic[{
+                 Automatic, 3.5 CurrentValue["FontCapHeight"]/
+                  AbsoluteCurrentValue[Magnification]}], Frame -> True, 
+               FrameTicks -> None, FrameStyle -> Directive[
+                 Opacity[0.5], 
+                 Thickness[Tiny], 
+                 RGBColor[0.368417, 0.506779, 0.709798]], Background -> 
+               GrayLevel[0.94]], 
+              GridBox[{{
+                 RowBox[{
+                   TagBox["\"Input type: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Image\"", "SummaryItem"]}]}, {
+                 RowBox[{
+                   TagBox["\"Classes: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                    
+                    TemplateBox[{",", "\",\"", "\"forward\"", "\"Left\""}, 
+                    "RowWithSeparators"], "SummaryItem"]}]}, {
+                 RowBox[{
+                   TagBox["\"Method: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"NeuralNetwork\"", "SummaryItem"]}]}, {
+                 RowBox[{
+                   TagBox[
+                   "\"Number of training examples: \"", 
+                    "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                   TagBox["2", "SummaryItem"]}]}}, 
+               GridBoxAlignment -> {
+                "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+               False, GridBoxItemSize -> {
+                "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+               GridBoxSpacings -> {
+                "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+               BaseStyle -> {
+                ShowStringCharacters -> False, NumberMarks -> False, 
+                 PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+            GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+            GridBoxItemSize -> {
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+            BaselinePosition -> {1, 1}]}, 
+         Dynamic[Typeset`open$$], ImageSize -> Automatic], BaselinePosition -> 
+        Baseline], DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->("ClassifierFunction[\[Ellipsis]]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellID->16]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"file", " ", "=", " ", 
+  RowBox[{"File", "[", "\"\<Classifier.m\>\"", "]"}]}]], "Input",
+ CellID->27],
+
+Cell[BoxData[
+ RowBox[{"File", "[", 
+  TemplateBox[{"\"Classifier.m\""},
+   "FileArgument"], "]"}]], "Output",
+ CellID->22]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Put", "[", 
+  RowBox[{"c1", ",", " ", 
+   RowBox[{"CloudObject", "[", "\"\<Classifier\>\"", "]"}]}], "]"}]], "Input",
+ CellID->67],
+
+Cell[BoxData[
+ TagBox[
+  InterpretationBox[
+   RowBox[{"CloudObject", "[", 
+    TagBox[
+     ButtonBox[
+      PaneSelectorBox[{
+       False->"\<\"https://www.wolframcloud.com/objects/user-8081c4b2-258f-\
+4e16-84ee-2dca7a46bbc3/Classifier\"\>", True->
+       StyleBox["\<\"https://www.wolframcloud.com/objects/user-8081c4b2-258f-\
+4e16-84ee-2dca7a46bbc3/Classifier\"\>", "HyperlinkActive"]}, Dynamic[
+        CurrentValue["MouseOver"]],
+       BaseStyle->{"Hyperlink"},
+       FrameMargins->0,
+       ImageSize->Automatic],
+      BaseStyle->"Hyperlink",
+      ButtonData->{
+        URL[
+        "https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-\
+2dca7a46bbc3/Classifier"], None},
+      ButtonNote->
+       "https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-\
+2dca7a46bbc3/Classifier"],
+     Annotation[#, 
+      "https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-\
+2dca7a46bbc3/Classifier", "Hyperlink"]& ], "]"}],
+   CloudObject[
+   "https://www.wolframcloud.com/objects/user-8081c4b2-258f-4e16-84ee-\
+2dca7a46bbc3/Classifier"]],
+  "RawBoxes"]], "Output",
+ CellID->33]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{775, 873},
+WindowMargins->{{338, Automatic}, {100, Automatic}},
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (September 21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 189, 2, 90, "Title"],
+Cell[CellGroupData[{
+Cell[794, 28, 624, 18, 50, "Input",
+ CellID->1],
+Cell[1421, 48, 4339, 88, 33, "Output",
+ CellID->8]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5797, 141, 220, 6, 30, "Input",
+ CellID->3],
+Cell[6020, 149, 8929, 181, 103, "Output",
+ CellID->16]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14986, 335, 125, 3, 30, "Input",
+ CellID->27],
+Cell[15114, 340, 123, 4, 37, "Output",
+ CellID->22]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15274, 349, 154, 4, 30, "Input",
+ CellID->67],
+Cell[15431, 355, 1119, 30, 55, "Output",
+ CellID->33]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
