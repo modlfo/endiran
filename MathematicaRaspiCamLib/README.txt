@@ -1,9 +1,6 @@
 
 
-Clone the repository to your raspberry. Then, uncompress the file and compile:
-
-git clone https://github.com/cedricve/raspicam .doesn't work 0.1.0.2. Downlaod 0.1.0.6 from sourceForge
-
+Clone the repository to your Raspberry Pi. Then, uncompress the files and compile:
 
 mkdir build
 cd build
