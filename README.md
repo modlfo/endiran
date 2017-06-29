@@ -12,4 +12,6 @@ At the outset of such a project, there are a number of important considerations 
 
 So how can I make a simple and cheap autonomous robot without needing to spend unnecessary money on software? 
 
-Do you want to know more about the project please go to: http://blog.wolfram.com/ and read, like and share it.
+Do you want to know more about the project please go to: http://??? and read, like and share it.
+
+I am writing this in the readme on Github: Special thanks to my good friend and colleague Leonardo Ruiz Laguna for the implementation help.
