@@ -1,0 +1,23 @@
+fun filter(x) {
+    mem w1;
+    // Frequency of the filter. Keep between 0.0001 and 0.5
+    // The lower the value, the more it filters
+    val k = 0.7;
+    val b0 = k/(k+1.0);
+    val b1 = k/(k+1.0);
+    val a1 = (k-1.0)/(k+1.0);
+    val w0 = x - a1*w1;
+    val y0 = b0*w0 + b1*w1;
+    w1 = w0;
+    return y0;
+}
+
+fun pi(target, current, use_filter) {
+   mem i;
+   val ki = 0.001; // Proportional gain
+   val kp = 3.0;   // Integral gain
+   val error = target - current;
+   val filtered_error = if use_filter then filter(error) else error;
+   i = i + ki * filtered_error;
+   return kp * filtered_error + i;
+}
