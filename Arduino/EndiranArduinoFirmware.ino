@@ -1,5 +1,6 @@
 #include <TimerOne.h>
 #include "vultin.h"
+#include "control.h"
 
 /*     ENCODERS      */
 #define encoder1IntPin 2
@@ -49,6 +50,11 @@ fix16_t motor3Current;
 fix16_t motor4Current;
 #define motor4CurentPin 15
 
+Control_pi_type rightControl1;
+Control_pi_type rightControl2;
+Control_pi_type leftControl1;
+Control_pi_type leftControl2;
+
 #define MAX_SPEED 4194304
 
 fix16_t target_speed_left;
@@ -64,23 +70,14 @@ uint8_t moving;
   fix16_t abs_vel1,abs_vel2;
   fix16_t error_left;
   fix16_t error_left_pre;
-  fix16_t signal_left;
+  fix16_t signal_left1;
+  fix16_t signal_left2;
   fix16_t signal_left_pre;
   fix16_t error_right;
   fix16_t error_right_pre;
-  fix16_t signal_right;
+  fix16_t signal_right1;
+  fix16_t signal_right2;
   fix16_t signal_right_pre;
-
-/* Ultra Sonic Sensors */
-#define rightUltrasonicSensorEnchoPin 50
-#define rightUltrasonicSensorTrigPin 52
-#define leftUltrasonicSensorEnchoPin 12
-#define leftUltrasonicSensorTrigPin 13
-
-fix16_t durationRight;
-uint16_t distanceRight;
-fix16_t durationLeft;
-uint16_t distanceLeft;
 
 
 /*    LINE SENSORS    */
@@ -152,6 +149,12 @@ void setup() {
   pinMode(motor4DirPin, OUTPUT);
   pinMode(motor4PWMPin, OUTPUT);
 
+  Control_pi_init(rightControl1);
+  Control_pi_init(rightControl2);
+  Control_pi_init(leftControl1);
+  Control_pi_init(leftControl2);
+  
+
   Timer1.initialize(100000);
   Timer1.attachInterrupt( timerIsr ); // attach the service routine here
 
@@ -166,17 +169,6 @@ void setup() {
 
   target_speed_left = 0;
   target_speed_right = 0;
-  
-  
-    /* Initialize ultrasonic sensors */
-
-  pinMode(rightUltrasonicSensorTrigPin, OUTPUT); // Sets the trigPin as an Output
-  pinMode(rightUltrasonicSensorEnchoPin, INPUT); // Sets the echoPin as an Input
-  pinMode(leftUltrasonicSensorTrigPin, OUTPUT); // Sets the trigPin as an Output
-  pinMode(leftUltrasonicSensorEnchoPin, INPUT); // Sets the echoPin as an Input
-  
-  
-  
   Serial.begin (115200);
   
      inByte;
@@ -185,10 +177,12 @@ void setup() {
    abs_vel1,abs_vel2=0;
    error_left = 0;
    error_left_pre = 0;
-   signal_left = 0;
+   signal_left1 = 0;
+   signal_left2 = 0;
    signal_left_pre = 0;
    error_right = 0;
-   signal_right = 0;
+   signal_right1 = 0;
+   signal_right2 = 0;
    signal_right_pre = 0;
   
   
@@ -204,7 +198,7 @@ void loop(){
 
   while(1)
   {
-    if(Serial.available()>0)
+   while(Serial.available()>0)
     {
       inByte = Serial.read();
       if(midi_state==0 && inByte==0xB0)
@@ -215,7 +209,7 @@ void loop(){
         ctrl = inByte;
         midi_state = 2;
       }
-      else if(midi_state==2){
+       else if(midi_state==2){
         val = inByte;
         sval = val;
         sval = sval-64;
@@ -243,30 +237,17 @@ void loop(){
        trigger = 0;
 
 
+       signal_left1 = Control_pi(leftControl1,target_speed_left, speed1,true);
+       moveMotor(1,signal_left1);       
 
-
-      #define P_left float_to_fix(2)
-       #define I_left float_to_fix(1)
+       signal_left2 = Control_pi(leftControl2, target_speed_left, speed3,true);       
+       moveMotor(3,signal_left2);
        
-       #define P_right float_to_fix(2)
-       #define I_right float_to_fix(1)
-
-
-       error_left = target_speed_left-speed3;
-       signal_left = signal_left_pre + fix_mul((P_left+I_left),error_left)+fix_mul(-P_left+I_left,error_left_pre); 
-       signal_left_pre = signal_left;
-       error_left_pre = error_left;
-       moveMotor(1,signal_left);
-       moveMotor(3,signal_left);
-
-       error_right = target_speed_right-speed2;
-       signal_right = signal_right_pre + fix_mul((P_right+I_right),error_right)+fix_mul(-P_right+I_right,error_right_pre); 
-       signal_right_pre = signal_right;
-       error_right_pre = error_right;
-       moveMotor(2,signal_right);
-       moveMotor(4,signal_right);
-
-
+       signal_right1 = Control_pi(rightControl1,target_speed_right, speed2,true);
+       moveMotor(2,signal_right1);
+       
+       signal_right2 = Control_pi(rightControl2, target_speed_right, speed4,true);
+       moveMotor(4,signal_right2);
 
        // Send information
        sendControl(0x20,abs(fix_to_int(speed1)));
@@ -279,57 +260,8 @@ void loop(){
        sendControl(0x32,fix_to_int(abs(target_speed_left)));
        sendControl(0x33,fix_to_int(abs(target_speed_right)));
        
-       
-       /* Ultra Sonic Sensors */
-         
-       digitalWrite(rightUltrasonicSensorTrigPin, LOW);
-       delayMicroseconds(2);
-       // Sets the trigPin on HIGH state for 10 micro seconds
-       digitalWrite(rightUltrasonicSensorTrigPin, HIGH);
-       delayMicroseconds(10);
-       digitalWrite(rightUltrasonicSensorTrigPin, LOW);
-       // Reads the echoPin, returns the sound wave travel time in microseconds
-       durationRight = float_to_fix(pulseIn(rightUltrasonicSensorEnchoPin, HIGH));
-       // Calculating the distance
-       distanceRight= fix_to_int(fix_mul(fix_mul(durationRight,float_to_fix(0.034)),float_to_fix(0.5)));
-       
-       digitalWrite(leftUltrasonicSensorTrigPin, LOW);
-       delayMicroseconds(2);
-       // Sets the trigPin on HIGH state for 10 micro seconds
-       digitalWrite(leftUltrasonicSensorTrigPin, HIGH);
-       delayMicroseconds(10);
-       digitalWrite(leftUltrasonicSensorTrigPin, LOW);
-       // Reads the echoPin, returns the sound wave travel time in microseconds
-       durationLeft = float_to_fix(pulseIn(leftUltrasonicSensorEnchoPin, HIGH));
-       // Calculating the distance
-       distanceLeft= fix_to_int(fix_mul(fix_mul(durationLeft,float_to_fix(0.034)),float_to_fix(0.5)));
-
-/*
-       Serial.print("Distance Right: ");
-       Serial.println(distanceRight);
-       
-       Serial.print("Distance Left: ");
-       Serial.println(distanceLeft);
-  */     
-       if (distanceLeft >= 127){
-           distanceLeft = 127;
-       }
-    
-       if (distanceLeft <= 0){
-        distanceLeft = 0;
-       }
-    
-    if (distanceRight >= 127){
-           distanceRight = 127;
-       }
-    
-       if (distanceRight <= 0){
-        distanceRight = 0;
-       }
-       
-       sendControl(0x40,distanceLeft);
-       sendControl(0x41,distanceRight);
-    
+       sendControl(0x40,sensor1val);
+       sendControl(0x41,sensor2val);
        sendControl(0x42,sensor3val);
 
     }
@@ -481,5 +413,4 @@ void sendControl(uint8_t ctrl, uint8_t value)
   Serial.write(ctrl);
   Serial.write(value);
 }
-
 
