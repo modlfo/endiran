@@ -39,6 +39,7 @@ DLLEXPORT int getImage_wrapper(WolframLibraryData libData, mint Argc, MArgument 
 
     EndiranCamera* camera = EndiranCamera::instance();
 
+
     const char *imageType;
     imageType = MArgument_getUTF8String(Args[0]);
     std::string imageTypeStr(imageType);
@@ -51,7 +52,7 @@ DLLEXPORT int getImage_wrapper(WolframLibraryData libData, mint Argc, MArgument 
 
     WolframImageLibrary_Functions imgFuns = libData->imageLibraryFunctions;
 
-    if (imageTypeStr == "Gray") {
+    if (imageTypeStr == "Grey") {
         raw_t_ubit8 * raw_data = (raw_t_ubit8*)camera->getImage(true, width, height);
 
         imgFuns->MImage_new2D(camera->width(), camera->height(), 1,
