@@ -6,30 +6,123 @@
 #include <math.h>
 #include "vultin.h"
 
-typedef struct Control__ctx_type_0 {
-   fix16_t w1;
-} Control__ctx_type_0;
+typedef struct _tuple___real_real__ {
+   fix16_t field_0;
+   fix16_t field_1;
+} _tuple___real_real__;
 
-typedef Control__ctx_type_0 Control_filter_type;
+extern int Serial_available();
+extern int Serial_read();
+extern void Serial_write(int byte);
+extern void IO_digitalWrite(int pin, uint8_t value);
+extern uint8_t IO_digitalRead(int pin);
+extern void IO_analogWrite(int pin, int value);
+void Control_sendControl(int control, int value);
 
-void Control__ctx_type_0_init(Control__ctx_type_0 &_output_);
+typedef struct Control__ctx_type_7 {
+   fix16_t target_right;
+   fix16_t target_left;
+   int state;
+   int control;
+} Control__ctx_type_7;
 
-void Control_filter_init(Control__ctx_type_0 &_output_);
+typedef Control__ctx_type_7 Control_processMessages_type;
 
-fix16_t Control_filter(Control__ctx_type_0 &_ctx, fix16_t x);
+void Control__ctx_type_7_init(Control__ctx_type_7 &_output_);
 
-typedef struct Control__ctx_type_1 {
+void Control_processMessages_init(Control__ctx_type_7 &_output_);
+
+void Control_processMessages(Control__ctx_type_7 &_ctx, _tuple___real_real__ &_output_);
+
+void Control_moveMotor(int id, fix16_t value);
+
+typedef struct Control__ctx_type_9 {
+   int state;
+   int pos;
+   uint8_t init;
+} Control__ctx_type_9;
+
+typedef Control__ctx_type_9 Control_processEncoder_type;
+
+void Control__ctx_type_9_init(Control__ctx_type_9 &_output_);
+
+void Control_processEncoder_init(Control__ctx_type_9 &_output_);
+
+void Control_processEncoder(Control__ctx_type_9 &_ctx, int pin1, int pin2);
+
+typedef Control__ctx_type_9 Control_getDisplacement_type;
+
+void Control_getDisplacement_init(Control__ctx_type_9 &_output_);
+
+fix16_t Control_getDisplacement(Control__ctx_type_9 &_ctx);
+
+typedef struct Control__ctx_type_10 {
    fix16_t i;
-   Control__ctx_type_0 _inst2;
-} Control__ctx_type_1;
+} Control__ctx_type_10;
 
-typedef Control__ctx_type_1 Control_pi_type;
+typedef Control__ctx_type_10 Control_control_type;
 
-void Control__ctx_type_1_init(Control__ctx_type_1 &_output_);
+void Control__ctx_type_10_init(Control__ctx_type_10 &_output_);
 
-void Control_pi_init(Control__ctx_type_1 &_output_);
+void Control_control_init(Control__ctx_type_10 &_output_);
 
-fix16_t Control_pi(Control__ctx_type_1 &_ctx, fix16_t target, fix16_t current, uint8_t use_filter);
+fix16_t Control_control(Control__ctx_type_10 &_ctx, fix16_t target, fix16_t current);
+
+typedef struct Control__ctx_type_11 {
+   fix16_t target_right;
+   fix16_t target_left;
+   fix16_t speed4;
+   fix16_t speed3;
+   fix16_t speed2;
+   fix16_t speed1;
+   Control__ctx_type_9 enc4;
+   Control__ctx_type_9 enc3;
+   Control__ctx_type_9 enc2;
+   Control__ctx_type_9 enc1;
+   Control__ctx_type_10 _inst38;
+   Control__ctx_type_10 _inst37;
+   Control__ctx_type_10 _inst36;
+   Control__ctx_type_10 _inst35;
+   Control__ctx_type_7 _inst33;
+} Control__ctx_type_11;
+
+typedef Control__ctx_type_11 Control_loop_type;
+
+void Control__ctx_type_11_init(Control__ctx_type_11 &_output_);
+
+void Control_loop_init(Control__ctx_type_11 &_output_);
+
+void Control_loop(Control__ctx_type_11 &_ctx);
+
+typedef Control__ctx_type_11 Control_actuate_type;
+
+void Control_actuate_init(Control__ctx_type_11 &_output_);
+
+void Control_actuate(Control__ctx_type_11 &_ctx);
+
+typedef Control__ctx_type_11 Control_encoder1_type;
+
+void Control_encoder1_init(Control__ctx_type_11 &_output_);
+
+void Control_encoder1(Control__ctx_type_11 &_ctx);
+
+typedef Control__ctx_type_11 Control_encoder2_type;
+
+void Control_encoder2_init(Control__ctx_type_11 &_output_);
+
+void Control_encoder2(Control__ctx_type_11 &_ctx);
+
+typedef Control__ctx_type_11 Control_encoder3_type;
+
+void Control_encoder3_init(Control__ctx_type_11 &_output_);
+
+void Control_encoder3(Control__ctx_type_11 &_ctx);
+
+typedef Control__ctx_type_11 Control_encoder4_type;
+
+void Control_encoder4_init(Control__ctx_type_11 &_output_);
+
+void Control_encoder4(Control__ctx_type_11 &_ctx);
 
 
 

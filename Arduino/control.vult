@@ -1,23 +1,170 @@
-fun filter(x) {
-    mem w1;
-    // Frequency of the filter. Keep between 0.0001 and 0.5
-    // The lower the value, the more it filters
-    val k = 0.7;
-    val b0 = k/(k+1.0);
-    val b1 = k/(k+1.0);
-    val a1 = (k-1.0)/(k+1.0);
-    val w0 = x - a1*w1;
-    val y0 = b0*w0 + b1*w1;
-    w1 = w0;
-    return y0;
+
+external Serial_available()     : int  "Serial_available";
+external Serial_read()          : int  "Serial_read";
+external Serial_write(byte:int) : unit "Serial_write";
+
+external digitalWrite(pin:int, value:bool) : unit "IO_digitalWrite";
+external digitalRead(pin:int)              : bool "IO_digitalRead";
+external analogWrite(pin:int, value:int)   : unit "IO_analogWrite";
+
+fun sendControl(control, value) {
+   _ = Serial_write(0xB0);
+   _ = Serial_write(control);
+   _ = Serial_write(value);
 }
 
-fun pi(target, current, use_filter) {
-   mem i;
-   val ki = 0.001; // Proportional gain
-   val kp = 3.0;   // Integral gain
-   val error = target - current;
-   val filtered_error = if use_filter then filter(error) else error;
-   i = i + ki * filtered_error;
-   return kp * filtered_error + i;
+fun processMessages() {
+   mem state;
+   mem control;
+   mem target_left, target_right;
+
+   while(Serial_available() > 0) {
+      val inByte = Serial_read();
+      // Check if it's a control change message
+      if(state == 0 && inByte == 0xB0) {
+        state = 1;
+      }
+      // Get the control number
+      else if(state == 1) {
+        control = inByte;
+        state = 2;
+      }
+      // Get the value
+      else if(state == 2) {
+        state = 0;
+        if(control == 0x50) {
+          target_left = real(inByte-64);
+        }
+        if(control == 0x51) {
+          target_right = real(inByte-64);
+        }
+      }
+      else
+        state = 0;
+   }
+   return target_left, target_right;
 }
+
+fun moveMotor(id, value) {
+   val vel = int(abs(value));
+   if(id == 1) {
+      val dir = value >= 0.0;
+      _ = digitalWrite(5, dir);
+      _ = analogWrite(4, vel);
+   }
+   else if(id == 2) {
+      val dir = value >= 0.0;
+      _ = digitalWrite(7, dir);
+      _ = analogWrite(6, vel);
+   }
+   else if(id == 3) {
+      val dir = value <= 0.0;
+      _ = digitalWrite(9, dir);
+      _ = analogWrite(8, vel);
+   }
+   else if(id == 4) {
+      val dir = value <= 0.0;
+      _ = digitalWrite(11, dir);
+      _ = analogWrite(10, vel);
+   }
+}
+
+fun processEncoder(pin1, pin2) {
+   mem state;
+   mem pos;
+   mem init;
+   val enc1 = if digitalRead(pin1) then 2 else 0;
+   val enc2 = if digitalRead(pin2) then 1 else 0;
+   val new_state = enc1  + enc2;
+
+   // Sequence 0 2 3 1
+
+   if(init) {
+     if(state == 0 && new_state == 1) pos = pos - 1;
+     if(state == 0 && new_state == 2) pos = pos + 1;
+
+     if(state == 1 && new_state == 3) pos = pos - 1;
+     if(state == 1 && new_state == 0) pos = pos + 1;
+
+     if(state == 2 && new_state == 0) pos = pos - 1;
+     if(state == 2 && new_state == 3) pos = pos + 1;
+
+     if(state == 3 && new_state == 2) pos = pos - 1;
+     if(state == 3 && new_state == 1) pos = pos + 1;
+
+  }
+  else {
+    init = true;
+  }
+
+  state = new_state;
+
+}
+// Return the current displacement and reset the position
+and getDisplacement() {
+   val ret = pos;
+   pos = 0;
+   return real(ret);
+}
+
+fun control(target, current) {
+   mem i;
+   val ki = 0.0;
+   val kp = 1.0;
+   val error = target - current;
+   i = i + ki * error;
+   return kp * error + i;
+}
+
+// Main loop, handles the communication
+fun loop() {
+   mem target_left, target_right;
+   mem speed1, speed2, speed3, speed4;
+
+   // Process the incomming messages
+   target_left, target_right = processMessages();
+
+   // Send the value of the speed of each motor
+   _ = sendControl(0x20, int(abs(speed1)));
+   _ = sendControl(0x21, int(abs(speed2)));
+   _ = sendControl(0x22, int(abs(speed3)));
+   _ = sendControl(0x23, int(abs(speed4)));
+
+}
+
+// This function called at a regular interval and performs
+// the control actions
+and actuate() {
+   // Get the displacements (speeds) of the wheels
+   speed1 = enc1:getDisplacement();
+   speed2 = enc2:getDisplacement();
+   speed3 = enc3:getDisplacement();
+   speed4 = enc4:getDisplacement();
+
+   // calculate the power to apply to the motors
+   val action1 = control(target_left, speed1);
+   val action2 = control(target_right, speed2);
+   val action3 = control(target_left, speed3);
+   val action4 = control(target_right, speed4);
+
+   // set the power to the motors
+   _ = moveMotor(1, action1);
+   _ = moveMotor(2, action2);
+   _ = moveMotor(3, action3);
+   _ = moveMotor(4, action4);
+}
+
+// Functions to handle the encoder interruptions
+and encoder1() {
+   _ = enc1:processEncoder(22, 24);
+}
+and encoder2() {
+   _ = enc2:processEncoder(26, 28);
+}
+and encoder3() {
+   _ = enc3:processEncoder(17, 16);
+}
+and encoder4() {
+   _ = enc4:processEncoder(21, 20);
+}
+
