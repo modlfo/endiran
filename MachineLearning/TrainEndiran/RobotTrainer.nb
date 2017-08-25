@@ -1,0 +1,942 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='WolframEngine 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       160,          7]
+NotebookDataLength[     40630,        934]
+NotebookOptionsPosition[     38909,        876]
+NotebookOutlinePosition[     39275,        892]
+CellTagsIndexPosition[     39232,        889]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Capture Pictures with the Raspberry Pi", "Title",
+ CellChangeTimes->{{3.703915383734086*^9, 3.70391538471198*^9}, {
+  3.7039157477553062`*^9, 3.703915748493965*^9}, {3.703921237455222*^9, 
+  3.7039212513276663`*^9}, {3.7039254155903387`*^9, 3.703925417755313*^9}, {
+  3.703926901255612*^9, 3.703926903844384*^9}, {3.703944025917941*^9, 
+  3.703944042016136*^9}, {3.703998470173399*^9, 3.703998488976171*^9}, {
+  3.7059034140323267`*^9, 3.705903414175335*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"raspiCamLib", " ", "=", " ", 
+   RowBox[{
+   "FindLibrary", "[", 
+    "\"\</home/pi/Documents/github/endiran-build/MathematicaRaspiCamLib/\
+libraspicam.so.0.1.6\>\"", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mathematicaCamLib", " ", "=", " ", 
+   RowBox[{
+   "FindLibrary", "[", 
+    "\"\</home/pi/Documents/github/endiran-build/MathematicaRaspiCamLib/\
+libMathematicaRaspiCamLib.so\>\"", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"LibraryLoad", "[", "mathematicaCamLib", "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"capture", "=", 
+   RowBox[{"LibraryFunctionLoad", "[", 
+    RowBox[{"mathematicaCamLib", ",", "\"\<getImage_wrapper\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", "\"\<UTF8String\>\"", "}"}], ",", 
+       RowBox[{"{", "Integer", "}"}], ",", 
+       RowBox[{"{", "Integer", "}"}]}], "}"}], ",", 
+     RowBox[{"LibraryDataType", "[", "Image", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"releaseCamera", "=", 
+   RowBox[{"LibraryFunctionLoad", "[", 
+    RowBox[{"mathematicaCamLib", ",", "\"\<release_wrapper\>\"", ",", 
+     RowBox[{"{", "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"LibraryDataType", "[", "Boolean", "]"}], "}"}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.703945044564557*^9, 3.7039450461635113`*^9}, {
+   3.70394533786975*^9, 3.703945343990925*^9}, {3.703950336959693*^9, 
+   3.7039503586381083`*^9}, {3.703992989954236*^9, 3.703992991439795*^9}, {
+   3.703994922161895*^9, 3.703994948060803*^9}, {3.703995187052636*^9, 
+   3.703995198548564*^9}, {3.703995581769155*^9, 3.703995583104412*^9}, 
+   3.706865703787228*^9, {3.707479421394266*^9, 3.7074794418926287`*^9}, {
+   3.707479736481842*^9, 3.707479871527032*^9}, {3.7074799142986383`*^9, 
+   3.707479933413598*^9}, {3.70747997318666*^9, 3.707480017976556*^9}, 
+   3.707480266142686*^9, {3.707480436291356*^9, 3.707480458634548*^9}, {
+   3.707480662524373*^9, 3.7074806632398663`*^9}, {3.707480703922082*^9, 
+   3.7074807701434383`*^9}, {3.707621516432616*^9, 3.7076215650703487`*^9}}],
+
+Cell["Test the camera :", "Text",
+ CellChangeTimes->{{3.7077127622230167`*^9, 3.707712780043562*^9}}],
+
+Cell[BoxData[
+ RowBox[{"capture", "[", 
+  RowBox[{"\"\<Grey\>\"", ",", "320", ",", "160"}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Connect to the Arduino", "Title",
+ CellChangeTimes->{{3.703998492728343*^9, 3.703998507966219*^9}, {
+  3.70408056757714*^9, 3.704080591936687*^9}, {3.7059032004751115`*^9, 
+  3.7059032006971245`*^9}, {3.7059034176715345`*^9, 3.7059034477122526`*^9}, {
+  3.705910492455352*^9, 3.7059104980956745`*^9}}],
+
+Cell["\<\
+Send speed 64 for stop. Left motors send 80 and Right motors send 81. {176, \
+a, b} a is the Motors (left or right), and b is the speed ( from 0 to 100)\
+\>", "Text",
+ CellChangeTimes->{{3.704080316710149*^9, 3.7040804406364727`*^9}, {
+  3.704166756200109*^9, 3.704166770219825*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"arduino", " ", "=", " ", 
+  RowBox[{"DeviceOpen", "[", 
+   RowBox[{"\"\<Serial\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{"\"\</dev/ttyACM0\>\"", ",", 
+      RowBox[{"\"\<BaudRate\>\"", "\[Rule]", "115200"}]}], "}"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.703998431628373*^9, 3.703998431714492*^9}, 
+   3.703998464682975*^9, {3.703998721064226*^9, 3.703998759757442*^9}, {
+   3.703999554319417*^9, 3.70399956167875*^9}, {3.70400118885725*^9, 
+   3.70400118996915*^9}, {3.704001353946966*^9, 3.704001354858898*^9}, {
+   3.704001883222589*^9, 3.7040018844509363`*^9}, {3.70400191973701*^9, 
+   3.704001922471843*^9}, {3.7040022579954777`*^9, 3.704002277225996*^9}, {
+   3.7040070005179377`*^9, 3.704007055924708*^9}, {3.704007152110261*^9, 
+   3.7040071532236767`*^9}, {3.704080221636799*^9, 3.7040802387136593`*^9}, 
+   3.704169429966653*^9, {3.704187193416224*^9, 3.7041871935411043`*^9}, 
+   3.7041882063669357`*^9, 3.704192129548058*^9, 3.704427971661091*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["DeviceObject",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False}, 
+    PanelBox[
+     PaneSelectorBox[{False->GridBox[{
+        {
+         PaneBox[
+          ButtonBox[
+           
+           DynamicBox[FEPrivate`FrontEndResource[
+            "FEBitmaps", "SquarePlusIconMedium"],
+            ImageSizeCache->{16., {0., 16.}}],
+           Appearance->None,
+           ButtonFunction:>(Typeset`open$$ = True),
+           Evaluator->Automatic,
+           Method->"Preemptive"],
+          Alignment->{Center, Center},
+          
+          ImageSize->
+           Dynamic[{
+            Automatic, 3.5 CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+             Magnification]}]], 
+         GraphicsBox[
+          {Thickness[0.038461538461538464`], 
+           {FaceForm[{RGBColor[0.941, 0.961, 0.957], Opacity[1.]}], 
+            FilledCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 
+             3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{25.5, 2.5}, {25.5, 
+             1.395}, {24.605, 0.5}, {23.5, 0.5}, {2.5, 0.5}, {1.395, 0.5}, {
+             0.5, 1.395}, {0.5, 2.5}, {0.5, 23.5}, {0.5, 24.605}, {1.395, 
+             25.5}, {2.5, 25.5}, {23.5, 25.5}, {24.605, 25.5}, {25.5, 
+             24.605}, {25.5, 23.5}, {25.5, 2.5}}}]}, 
+           {RGBColor[0.7, 0.7, 0.7], Opacity[1.], JoinForm[{"Miter", 10.}], 
+            JoinedCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 
+             3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{25.5, 2.5}, {25.5, 
+             1.395}, {24.605, 0.5}, {23.5, 0.5}, {2.5, 0.5}, {1.395, 0.5}, {
+             0.5, 1.395}, {0.5, 2.5}, {0.5, 23.5}, {0.5, 24.605}, {1.395, 
+             25.5}, {2.5, 25.5}, {23.5, 25.5}, {24.605, 25.5}, {25.5, 
+             24.605}, {25.5, 23.5}, {25.5, 2.5}}},
+             CurveClosed->{1}]}, 
+           {FaceForm[{RGBColor[0.5423, 0.63104, 0.63597], Opacity[1.]}], 
+            FilledCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 
+             3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{11.133, 
+             18.727999999999998`}, {11.133, 18.451999999999998`}, {
+             11.357000000000001`, 18.227999999999998`}, {11.633, 
+             18.227999999999998`}, {14.792, 18.227999999999998`}, {15.068, 
+             18.227999999999998`}, {15.292, 18.451999999999998`}, {15.292, 
+             18.727999999999998`}, {15.292, 20.639000000000003`}, {15.292, 
+             20.915}, {15.068, 21.139000000000003`}, {14.792, 
+             21.139000000000003`}, {11.633, 21.139000000000003`}, {
+             11.357000000000001`, 21.139000000000003`}, {11.133, 20.915}, {
+             11.133, 20.639000000000003`}, {11.133, 
+             18.727999999999998`}}}]}, 
+           {FaceForm[{RGBColor[0.5, 0.5, 0.5], Opacity[1.]}], 
+            FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{
+             12.357000000000001`, 1.}, {14.113000000000001`, 1.}, {
+             14.113000000000001`, 9.554}, {12.357000000000001`, 9.554}}}]}, 
+           {FaceForm[{RGBColor[0.624375, 0.695304, 0.691308], Opacity[1.]}], 
+            FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 
+             1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0,
+              1, 0}}}, {{{15.876000000000001`, 19.799}, {8.122, 19.799}, {
+             8.122, 11.516}, {10.573, 11.516}, {10.573, 11.493}, {
+             11.982000000000001`, 9.171}, {14.539, 9.171}, {
+             15.876000000000001`, 11.493}, {15.876000000000001`, 11.516}, {
+             18.326, 11.516}, {18.326, 19.799}, {15.876000000000001`, 
+             19.799}}}], 
+            FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{
+             8.806000000000001, 7.993}, {9.995000000000001, 7.993}, {
+             9.995000000000001, 11.008}, {8.806000000000001, 11.008}}}], 
+            FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{16.5, 
+             7.993}, {17.689, 7.993}, {17.689, 11.008}, {16.5, 11.008}}}]}},
+          AspectRatio->Automatic,
+          ImageSize->{Automatic, 
+            Dynamic[3.5 CurrentValue["FontCapHeight"]]},
+          PlotRange->{{0., 26.}, {0., 26.}}], GridBox[{
+           {
+            RowBox[{
+             TagBox["\<\"Class: \"\>",
+              "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+             TagBox["\<\"Serial\"\>",
+              "SummaryItem"]}], 
+            RowBox[{
+             TagBox["\<\"ID: \"\>",
+              "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+             TagBox["1",
+              "SummaryItem"]}]},
+           {
+            RowBox[{
+             TagBox["\<\"Status: \"\>",
+              "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+             TagBox[
+              DynamicModuleBox[{Devices`DeviceAPI`DeviceDump`lights$$ = {
+                Style[
+                 Graphics[{{
+                    RGBColor[0.88, 1, 0.88], 
+                    Disk[{0, 0}]}, {
+                    RGBColor[0, 0.85, 0], 
+                    Circle[{0, 0}]}}, PlotRange -> {-2.2, 1.1}, ImageSize -> 
+                  9, ImageMargins -> {{3, 3}, {2, 0}}, 
+                  BaseStyle -> {CacheGraphics -> False}], Selectable -> 
+                 False], 
+                Style[
+                 Graphics[{{
+                    RGBColor[1, 1, 0], 
+                    Disk[{0, 0}]}, {
+                    RGBColor[0.8, 0.8, 0], 
+                    Circle[{0, 0}]}}, PlotRange -> {-2.2, 1.1}, ImageSize -> 
+                  9, ImageMargins -> {{3, 3}, {2, 0}}, 
+                  BaseStyle -> {CacheGraphics -> False}], Selectable -> 
+                 False]}, Devices`DeviceAPI`DeviceDump`opacities$$ = {
+                Opacity[1], 
+                Opacity[0.2]}, Devices`DeviceAPI`DeviceDump`status$$ = {
+               "Connected (/dev/ttyACM0)", "Not connected (/dev/ttyACM0)"}, 
+               Devices`DeviceAPI`DeviceDump`d$$ = DeviceObject[{"Serial", 1}],
+                Devices`DeviceAPI`DeviceDump`ind$$ = 1, 
+               Devices`DeviceAPI`DeviceDump`indr$$ = 1}, 
+               DynamicBox[ToBoxes[Devices`DeviceAPI`DeviceDump`ind$$ = If[
+                    DeviceOpenQ[Devices`DeviceAPI`DeviceDump`d$$], 1, 2]; 
+                 Devices`DeviceAPI`DeviceDump`indr$$ = If[
+                    DeviceFramework`DeviceRegisteredQ[
+                    Devices`DeviceAPI`DeviceDump`d$$], 1, 2]; Style[
+                   Row[{
+                    Part[
+                    Devices`DeviceAPI`DeviceDump`lights$$, 
+                    Devices`DeviceAPI`DeviceDump`ind$$], 
+                    Part[
+                    Devices`DeviceAPI`DeviceDump`status$$, 
+                    Devices`DeviceAPI`DeviceDump`ind$$]}], 
+                   Part[
+                   Devices`DeviceAPI`DeviceDump`opacities$$, 
+                    Devices`DeviceAPI`DeviceDump`indr$$]], StandardForm],
+                ImageSizeCache->{212., {6., 12.}}],
+               DynamicModuleValues:>{}],
+              "SummaryItem"]}], "\[SpanFromLeft]"}
+          },
+          AutoDelete->False,
+          
+          BaseStyle->{
+           ShowStringCharacters -> False, NumberMarks -> False, 
+            PrintPrecision -> 3, ShowSyntaxStyles -> False},
+          GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+          
+          GridBoxItemSize->{
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+          GridBoxSpacings->{"Columns" -> {{2}}, "Rows" -> {{Automatic}}}]}
+       },
+       AutoDelete->False,
+       BaselinePosition->{1, 1},
+       GridBoxAlignment->{"Rows" -> {{Top}}},
+       GridBoxItemSize->{
+        "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], True->
+      GridBox[{
+        {
+         PaneBox[
+          ButtonBox[
+           
+           DynamicBox[FEPrivate`FrontEndResource[
+            "FEBitmaps", "SquareMinusIconMedium"]],
+           Appearance->None,
+           ButtonFunction:>(Typeset`open$$ = False),
+           Evaluator->Automatic,
+           Method->"Preemptive"],
+          Alignment->{Center, Center},
+          
+          ImageSize->
+           Dynamic[{
+            Automatic, 3.5 CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+             Magnification]}]], 
+         GraphicsBox[
+          {Thickness[0.038461538461538464`], 
+           {FaceForm[{RGBColor[0.941, 0.961, 0.957], Opacity[1.]}], 
+            FilledCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 
+             3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{25.5, 2.5}, {25.5, 
+             1.395}, {24.605, 0.5}, {23.5, 0.5}, {2.5, 0.5}, {1.395, 0.5}, {
+             0.5, 1.395}, {0.5, 2.5}, {0.5, 23.5}, {0.5, 24.605}, {1.395, 
+             25.5}, {2.5, 25.5}, {23.5, 25.5}, {24.605, 25.5}, {25.5, 
+             24.605}, {25.5, 23.5}, {25.5, 2.5}}}]}, 
+           {RGBColor[0.7, 0.7, 0.7], Opacity[1.], JoinForm[{"Miter", 10.}], 
+            JoinedCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 
+             3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{25.5, 2.5}, {25.5, 
+             1.395}, {24.605, 0.5}, {23.5, 0.5}, {2.5, 0.5}, {1.395, 0.5}, {
+             0.5, 1.395}, {0.5, 2.5}, {0.5, 23.5}, {0.5, 24.605}, {1.395, 
+             25.5}, {2.5, 25.5}, {23.5, 25.5}, {24.605, 25.5}, {25.5, 
+             24.605}, {25.5, 23.5}, {25.5, 2.5}}},
+             CurveClosed->{1}]}, 
+           {FaceForm[{RGBColor[0.5423, 0.63104, 0.63597], Opacity[1.]}], 
+            FilledCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 
+             3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{11.133, 
+             18.727999999999998`}, {11.133, 18.451999999999998`}, {
+             11.357000000000001`, 18.227999999999998`}, {11.633, 
+             18.227999999999998`}, {14.792, 18.227999999999998`}, {15.068, 
+             18.227999999999998`}, {15.292, 18.451999999999998`}, {15.292, 
+             18.727999999999998`}, {15.292, 20.639000000000003`}, {15.292, 
+             20.915}, {15.068, 21.139000000000003`}, {14.792, 
+             21.139000000000003`}, {11.633, 21.139000000000003`}, {
+             11.357000000000001`, 21.139000000000003`}, {11.133, 20.915}, {
+             11.133, 20.639000000000003`}, {11.133, 
+             18.727999999999998`}}}]}, 
+           {FaceForm[{RGBColor[0.5, 0.5, 0.5], Opacity[1.]}], 
+            FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{
+             12.357000000000001`, 1.}, {14.113000000000001`, 1.}, {
+             14.113000000000001`, 9.554}, {12.357000000000001`, 9.554}}}]}, 
+           {FaceForm[{RGBColor[0.624375, 0.695304, 0.691308], Opacity[1.]}], 
+            FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 
+             1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0,
+              1, 0}}}, {{{15.876000000000001`, 19.799}, {8.122, 19.799}, {
+             8.122, 11.516}, {10.573, 11.516}, {10.573, 11.493}, {
+             11.982000000000001`, 9.171}, {14.539, 9.171}, {
+             15.876000000000001`, 11.493}, {15.876000000000001`, 11.516}, {
+             18.326, 11.516}, {18.326, 19.799}, {15.876000000000001`, 
+             19.799}}}], 
+            FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{
+             8.806000000000001, 7.993}, {9.995000000000001, 7.993}, {
+             9.995000000000001, 11.008}, {8.806000000000001, 11.008}}}], 
+            FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{16.5, 
+             7.993}, {17.689, 7.993}, {17.689, 11.008}, {16.5, 11.008}}}]}},
+          AspectRatio->Automatic,
+          ImageSize->{Automatic, 
+            Dynamic[3.5 CurrentValue["FontCapHeight"]]},
+          PlotRange->{{0., 26.}, {0., 26.}}], GridBox[{
+           {
+            RowBox[{
+             TagBox["\<\"Class: \"\>",
+              "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+             TagBox["\<\"Serial\"\>",
+              "SummaryItem"]}], 
+            RowBox[{
+             TagBox["\<\"ID: \"\>",
+              "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+             TagBox["1",
+              "SummaryItem"]}]},
+           {
+            RowBox[{
+             TagBox["\<\"Status: \"\>",
+              "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+             TagBox[
+              DynamicModuleBox[{Devices`DeviceAPI`DeviceDump`lights$$ = {
+                Style[
+                 Graphics[{{
+                    RGBColor[0.88, 1, 0.88], 
+                    Disk[{0, 0}]}, {
+                    RGBColor[0, 0.85, 0], 
+                    Circle[{0, 0}]}}, PlotRange -> {-2.2, 1.1}, ImageSize -> 
+                  9, ImageMargins -> {{3, 3}, {2, 0}}, 
+                  BaseStyle -> {CacheGraphics -> False}], Selectable -> 
+                 False], 
+                Style[
+                 Graphics[{{
+                    RGBColor[1, 1, 0], 
+                    Disk[{0, 0}]}, {
+                    RGBColor[0.8, 0.8, 0], 
+                    Circle[{0, 0}]}}, PlotRange -> {-2.2, 1.1}, ImageSize -> 
+                  9, ImageMargins -> {{3, 3}, {2, 0}}, 
+                  BaseStyle -> {CacheGraphics -> False}], Selectable -> 
+                 False]}, Devices`DeviceAPI`DeviceDump`opacities$$ = {
+                Opacity[1], 
+                Opacity[0.2]}, Devices`DeviceAPI`DeviceDump`status$$ = {
+               "Connected (/dev/ttyACM0)", "Not connected (/dev/ttyACM0)"}, 
+               Devices`DeviceAPI`DeviceDump`d$$ = DeviceObject[{"Serial", 1}],
+                Devices`DeviceAPI`DeviceDump`ind$$, 
+               Devices`DeviceAPI`DeviceDump`indr$$}, 
+               DynamicBox[ToBoxes[Devices`DeviceAPI`DeviceDump`ind$$ = If[
+                    DeviceOpenQ[Devices`DeviceAPI`DeviceDump`d$$], 1, 2]; 
+                 Devices`DeviceAPI`DeviceDump`indr$$ = If[
+                    DeviceFramework`DeviceRegisteredQ[
+                    Devices`DeviceAPI`DeviceDump`d$$], 1, 2]; Style[
+                   Row[{
+                    Part[
+                    Devices`DeviceAPI`DeviceDump`lights$$, 
+                    Devices`DeviceAPI`DeviceDump`ind$$], 
+                    Part[
+                    Devices`DeviceAPI`DeviceDump`status$$, 
+                    Devices`DeviceAPI`DeviceDump`ind$$]}], 
+                   Part[
+                   Devices`DeviceAPI`DeviceDump`opacities$$, 
+                    Devices`DeviceAPI`DeviceDump`indr$$]], StandardForm]],
+               DynamicModuleValues:>{}],
+              "SummaryItem"]}], "\[SpanFromLeft]"},
+           {
+            TagBox[
+             DynamicModuleBox[{Devices`DeviceAPI`DeviceDump`opacities$$ = {
+               Opacity[1], 
+               Opacity[0.2]}, Devices`DeviceAPI`DeviceDump`d$$ = 
+              DeviceObject[{"Serial", 1}], 
+              Devices`DeviceAPI`DeviceDump`props$$, 
+              Devices`DeviceAPI`DeviceDump`vals$$, 
+              Devices`DeviceAPI`DeviceDump`reg$$}, 
+              
+              DynamicBox[ToBoxes[
+               Devices`DeviceAPI`DeviceDump`reg$$ = 
+                 DeviceFramework`DeviceRegisteredQ[
+                  Devices`DeviceAPI`DeviceDump`d$$]; 
+                Devices`DeviceAPI`DeviceDump`props$$ = 
+                 DeviceFramework`DeviceExternalProperties[
+                  Devices`DeviceAPI`DeviceDump`d$$]; 
+                Devices`DeviceAPI`DeviceDump`vals$$ = 
+                 Devices`DeviceAPI`DeviceDump`d$$[
+                  Devices`DeviceAPI`DeviceDump`props$$]; Column[
+                  Join[{
+                    BoxForm`SummaryItem[{"Properties: ", 
+                    If[
+                    Or[
+                    Not[Devices`DeviceAPI`DeviceDump`reg$$], 
+                    Devices`DeviceAPI`DeviceDump`props$$ === {}], 
+                    Style[None, 
+                    Part[Devices`DeviceAPI`DeviceDump`opacities$$, 
+                    If[Devices`DeviceAPI`DeviceDump`reg$$, 1, 2]]], ""]}]}, 
+                   MapThread[BoxForm`SummaryItem[{
+                    StringJoin["      ", 
+                    ToString[#], ": "], #2}]& , {
+                    Devices`DeviceAPI`DeviceDump`props$$, 
+                    Devices`DeviceAPI`DeviceDump`vals$$}]]], StandardForm]],
+              DynamicModuleValues:>{}],
+             "SummaryItem"], "\[SpanFromLeft]"}
+          },
+          AutoDelete->False,
+          
+          BaseStyle->{
+           ShowStringCharacters -> False, NumberMarks -> False, 
+            PrintPrecision -> 3, ShowSyntaxStyles -> False},
+          GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+          
+          GridBoxItemSize->{
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+          GridBoxSpacings->{"Columns" -> {{2}}, "Rows" -> {{Automatic}}}]}
+       },
+       AutoDelete->False,
+       BaselinePosition->{1, 1},
+       GridBoxAlignment->{"Rows" -> {{Top}}},
+       GridBoxItemSize->{
+        "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]}, Dynamic[
+      Typeset`open$$],
+      ImageSize->Automatic],
+     BaselinePosition->Baseline],
+    DynamicModuleValues:>{}], "]"}],
+  DeviceObject[{"Serial", 1}],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.7044279742250137`*^9, 3.7044290612582083`*^9, 
+  3.7044319388697767`*^9, 3.7045122515269623`*^9, 3.704512755000867*^9, 
+  3.704514547698183*^9, 3.704517693587872*^9, 3.70451859598265*^9, 
+  3.705029553001094*^9, 3.705031522124415*^9, 3.705031989829623*^9, 
+  3.705032351288433*^9, 3.705033161565667*^9, 3.7050334970876904`*^9, 
+  3.705033950289562*^9, 3.705034114526733*^9, 3.70503428944033*^9, 
+  3.705034498813588*^9, 3.705055858528387*^9, 3.705118836513451*^9, 
+  3.70511898581348*^9, 3.705119292139831*^9, 3.705120750737729*^9, 
+  3.705121132511527*^9, 3.7051217447390003`*^9, 3.705121843755554*^9, 
+  3.7051221471501083`*^9, 3.705122318692848*^9, 3.70512248214386*^9, 
+  3.705122738682748*^9, 3.705123006546524*^9, 3.7072875217114143`*^9, 
+  3.707473567334755*^9, 3.7076295571720753`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"capture", "[", 
+  RowBox[{"\"\<Grey\>\"", ",", "320", ",", "160"}], "]"}]], "Input",
+ CellChangeTimes->{{3.70747577528153*^9, 3.70747581989921*^9}, {
+   3.707475857327365*^9, 3.707475861891246*^9}, {3.7074812656729097`*^9, 
+   3.7074812665719633`*^9}, {3.707621581990376*^9, 3.7076215935646133`*^9}, 
+   3.707621630155579*^9, {3.707621685476304*^9, 3.7076217199448433`*^9}, 
+   3.707621787407443*^9, {3.707622396517898*^9, 3.707622396980875*^9}, {
+   3.707623450152315*^9, 3.707623479880911*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Control Endiran with a USB-gamepad", "Title",
+ CellChangeTimes->{{3.704164842961534*^9, 3.7041648650211277`*^9}, {
+  3.7059104687599964`*^9, 3.705910486263998*^9}, {3.707475722185073*^9, 
+  3.707475727509019*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"setSpeeds", "[", 
+   RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"DeviceWriteBuffer", "[", 
+     RowBox[{"arduino", ",", 
+      RowBox[{"FromCharacterCode", "[", 
+       RowBox[{"{", 
+        RowBox[{"176", ",", "80", ",", "x"}], "}"}], "]"}]}], "]"}], ",", 
+    RowBox[{"DeviceWriteBuffer", "[", 
+     RowBox[{"arduino", ",", 
+      RowBox[{"FromCharacterCode", "[", 
+       RowBox[{"{", 
+        RowBox[{"176", ",", "81", ",", "y"}], "}"}], "]"}]}], "]"}]}], 
+   "}"}]}]], "Input",
+ CellChangeTimes->{{3.704186236947874*^9, 3.704186319593327*^9}, {
+   3.704186389184621*^9, 3.704186477845805*^9}, {3.704186512840191*^9, 
+   3.704186513073436*^9}, {3.704186754592203*^9, 3.704186785627041*^9}, 
+   3.7041868267902822`*^9, 3.704431109907127*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"doStep", "[", 
+   RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"action", "=", 
+      RowBox[{"setSpeeds", "[", 
+       RowBox[{"x", ",", "y"}], "]"}]}], "}"}], ",", 
+    RowBox[{
+     RowBox[{"RunScheduledTask", "[", 
+      RowBox[{
+       RowBox[{"setSpeeds", "[", 
+        RowBox[{"64", ",", "64"}], "]"}], ",", 
+       RowBox[{"{", "0", "}"}], ",", 
+       RowBox[{
+        RowBox[{"AbsoluteTime", "[", "]"}], "+", "0.5"}]}], "]"}], ";", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y"}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.704186893936614*^9, 3.704187041673779*^9}, 
+   3.704187228149077*^9, {3.7041872670512953`*^9, 3.704187267470063*^9}, {
+   3.704187315180204*^9, 3.704187350192997*^9}, {3.7041874057914248`*^9, 
+   3.704187443436035*^9}, {3.704187489590727*^9, 3.7041875032385187`*^9}, 
+   3.704187534450069*^9, {3.704187588636194*^9, 3.704187616121804*^9}, {
+   3.704187678008204*^9, 3.704187687507832*^9}, 3.704188376885714*^9, {
+   3.704429328315422*^9, 3.704429329572897*^9}, {3.704429372831518*^9, 
+   3.704429387860565*^9}, 3.7045177612336473`*^9, {3.704517955439562*^9, 
+   3.704517956549453*^9}, 3.705033589999484*^9, {3.705034624367095*^9, 
+   3.705034625253787*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"imageHeight", " ", "=", " ", "16"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"imageWidth", " ", "=", " ", "32"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cropHeight", " ", "=", " ", 
+   RowBox[{"imageHeight", "/", "2"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.707712653628104*^9, 3.707712715335644*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"getImage", "[", "]"}], ":=", 
+   RowBox[{"Binarize", "[", 
+    RowBox[{"ImageCrop", "[", 
+     RowBox[{
+      RowBox[{"capture", "[", 
+       RowBox[{"\"\<Gray\>\"", ",", "imageHeight", ",", "imageWidth"}], "]"}],
+       ",", 
+      RowBox[{"{", 
+       RowBox[{"Full", ",", "cropHeight"}], "}"}], ",", "Top"}], "]"}], 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{
+  3.704184966798636*^9, {3.704185974028084*^9, 3.704185981132327*^9}, {
+   3.704188557981572*^9, 3.704188607698736*^9}, {3.7041887256540937`*^9, 
+   3.704188839778459*^9}, 3.704188964472817*^9, {3.704619218478593*^9, 
+   3.7046192532336607`*^9}, 3.705903325186245*^9, {3.7068655645559616`*^9, 
+   3.7068655692149687`*^9}, 3.70747576129696*^9, {3.707712721277234*^9, 
+   3.707712730737986*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"forward", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"image", "=", 
+       RowBox[{"getImage", "[", "]"}]}], ",", 
+      RowBox[{"action", "=", 
+       RowBox[{"doStep", "[", 
+        RowBox[{"69", ",", "69"}], "]"}]}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"image", ",", "\"\<Forward\>\""}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.704185937215179*^9, 3.704185950566503*^9}, {
+  3.704185987730008*^9, 3.704186010892888*^9}, {3.704186082617683*^9, 
+  3.704186136320492*^9}, {3.704188249207773*^9, 3.704188277117124*^9}, {
+  3.7041897122661753`*^9, 3.70418971701217*^9}, {3.704517967303432*^9, 
+  3.704517969929059*^9}, {3.704519115846093*^9, 3.7045191315755253`*^9}, {
+  3.705034765595492*^9, 3.7050347698911343`*^9}, {3.705055903685863*^9, 
+  3.70505590808974*^9}, {3.7059031521373467`*^9, 3.7059031576176605`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"left", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"image", "=", 
+       RowBox[{"getImage", "[", "]"}]}], ",", 
+      RowBox[{"action", "=", 
+       RowBox[{"doStep", "[", 
+        RowBox[{"59", ",", "69"}], "]"}]}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"image", ",", "\"\<Left\>\""}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7041892288667173`*^9, 3.704189239696191*^9}, {
+   3.7041897204382467`*^9, 3.704189726535808*^9}, {3.704517972170313*^9, 
+   3.7045179723139257`*^9}, {3.704518081663499*^9, 3.704518081757967*^9}, 
+   3.7050317691359367`*^9, {3.705031819574738*^9, 3.705031863696*^9}, {
+   3.705032043608445*^9, 3.705032053167384*^9}, {3.705055914011889*^9, 
+   3.705055917945133*^9}, {3.705056695182969*^9, 3.7050566995240993`*^9}, {
+   3.7059031279869657`*^9, 3.70590313173818*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"right", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"image", "=", 
+       RowBox[{"getImage", "[", "]"}]}], ",", 
+      RowBox[{"action", "=", 
+       RowBox[{"doStep", "[", 
+        RowBox[{"69", ",", "59"}], "]"}]}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"image", ",", "\"\<Right\>\""}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.704189234701846*^9, 3.704189242433752*^9}, {
+   3.704189731063197*^9, 3.704189735409259*^9}, {3.7045179741172523`*^9, 
+   3.704517974234847*^9}, {3.7045180789305897`*^9, 3.704518079044734*^9}, {
+   3.705031772108255*^9, 3.705031772422185*^9}, {3.705031823382985*^9, 
+   3.705031869128173*^9}, {3.705032056922742*^9, 3.705032058441667*^9}, {
+   3.705032229255456*^9, 3.7050322314493217`*^9}, {3.705032369165475*^9, 
+   3.705032370926921*^9}, {3.705055925138165*^9, 3.705055928660301*^9}, {
+   3.705056704665193*^9, 3.705056708800659*^9}, {3.705903136385446*^9, 
+   3.7059031623299303`*^9}, 3.707475654713646*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"stop", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"image", "=", 
+       RowBox[{"getImage", "[", "]"}]}], ",", 
+      RowBox[{"action", "=", 
+       RowBox[{"doStep", "[", 
+        RowBox[{"64", ",", "64"}], "]"}]}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"image", ",", "\"\<Stop\>\""}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7074756623231163`*^9, 3.707475673488998*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ControllerInformation", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.70419284666286*^9, 3.7041928561073837`*^9}, 
+   3.704425070726829*^9, {3.7063404142451305`*^9, 3.706340414675131*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"control", "[", "]"}], ":=", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{"ControllerState", "[", "\"\<B1\>\"", "]"}], ",", 
+    RowBox[{"left", "[", "]"}], ",", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"ControllerState", "[", "\"\<B2\>\"", "]"}], ",", 
+      RowBox[{"forward", "[", "]"}], ",", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"ControllerState", "[", "\"\<B3\>\"", "]"}], ",", 
+        RowBox[{"stop", "[", "]"}], ",", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"ControllerState", "[", "\"\<B4\>\"", "]"}], ",", 
+          RowBox[{"right", "[", "]"}], ",", 
+          RowBox[{"{", "}"}]}], "]"}]}], "]"}]}], "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.704189258092269*^9, 3.704189367814694*^9}, {
+  3.704189410621937*^9, 3.704189431714373*^9}, {3.704189475497566*^9, 
+  3.7041894983001223`*^9}, {3.707475690093202*^9, 3.70747571361898*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Save images to Wolfram Data Drop", "Title",
+ CellChangeTimes->{{3.7041669882133207`*^9, 3.704167020083909*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CloudConnect", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.707629943838077*^9, 3.707629948867683*^9}}],
+
+Cell[BoxData[
+ RowBox[{"bin", "=", 
+  RowBox[{"CreateDatabin", "[", "]"}]}]], "Input",
+ CellChangeTimes->{{3.707710932070016*^9, 3.707710932073292*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"doEverything", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"result", "=", 
+       RowBox[{"control", "[", "]"}]}], ",", 
+      RowBox[{"name", "=", "\"\<img\>\""}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Length", "[", "result", "]"}], ">", "0"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"DatabinAdd", "[", 
+        RowBox[{"bin", ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"result", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], ",", 
+           RowBox[{"result", "[", 
+            RowBox[{"[", "2", "]"}], "]"}]}], "}"}]}], "]"}], ";"}], 
+      "\[IndentingNewLine]", ",", "0"}], "]"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.704190758999823*^9, 3.704190794643231*^9}, {
+   3.704190830248825*^9, 3.7041908395232162`*^9}, {3.704190891054358*^9, 
+   3.704190908849681*^9}, {3.7041909801633587`*^9, 3.704191011680332*^9}, {
+   3.704191082695962*^9, 3.704191101605383*^9}, {3.7041912124408903`*^9, 
+   3.704191248779603*^9}, 3.7041915332408113`*^9, {3.704191680037181*^9, 
+   3.7041916945221157`*^9}, 3.704192092271755*^9, {3.7041922736290197`*^9, 
+   3.704192275978757*^9}, {3.704192385938519*^9, 3.704192406695911*^9}, 
+   3.704192712872176*^9, 3.704193744238925*^9, {3.704193791597856*^9, 
+   3.7041937936087112`*^9}, 3.7050315460952463`*^9, 3.7050559408534946`*^9, {
+   3.705118856882874*^9, 3.705118861135984*^9}, {3.705903108189833*^9, 
+   3.705903109897931*^9}, 3.7059033672336493`*^9, {3.705903567063079*^9, 
+   3.705903567288092*^9}, {3.7059036216172*^9, 3.7059036475736847`*^9}, {
+   3.7059981118585567`*^9, 3.705998115474764*^9}, 3.707287811853595*^9, 
+   3.70762997952394*^9, 3.707710938797665*^9}],
+
+Cell[BoxData[
+ RowBox[{"Dynamic", "[", 
+  RowBox[{"doEverything", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.705031541151856*^9, 3.705031571872262*^9}, {
+  3.70511885229821*^9, 3.705118855053755*^9}, {3.7059031112510085`*^9, 
+  3.705903112642088*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Databin", "[", "bin", "]"}]], "Input",
+ CellChangeTimes->{{3.707710959777501*^9, 3.7077109597819233`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["With Left and Right Distance Sensors", "Title",
+ CellChangeTimes->{{3.705998121581113*^9, 3.7059981458325*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ttr", "[", 
+   RowBox[{"{", 
+    RowBox[{"176", ",", "65", ",", "z_"}], "}"}], "]"}], ":=", 
+  RowBox[{"endiranRightDistanceSensor", "[", "z", "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"ttr", "[", 
+   RowBox[{"{", 
+    RowBox[{"176", ",", "64", ",", "z_"}], "}"}], "]"}], ":=", 
+  RowBox[{"endiranLeftDistanceSensor", "[", "z", "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"tta", "[", "transmission_", "]"}], ":=", 
+  RowBox[{"Map", "[", 
+   RowBox[{"ttr", ",", 
+    RowBox[{"Partition", "[", 
+     RowBox[{"transmission", ",", "3"}], "]"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.705998091263379*^9, 3.7059980912643785`*^9}, {
+  3.7059981974894543`*^9, 3.7059982497694445`*^9}, {3.7059983029534864`*^9, 
+  3.7059983107049303`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"bin", "=", 
+  RowBox[{"CreateDatabin", "[", "]"}]}]], "Input"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.70539441836569*^9, 3.70539442431403*^9}, 
+   3.70771098628191*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"doEverything", "[", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"result", "=", 
+       RowBox[{"control", "[", "]"}]}], ",", 
+      RowBox[{"name", "=", "\"\<img\>\""}]}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Length", "[", "result", "]"}], ">", "0"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"lista", " ", "=", " ", 
+        RowBox[{"DeviceReadBuffer", "[", 
+         RowBox[{"arduino", ",", 
+          RowBox[{"3", "*", "297"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"translated", "=", 
+        RowBox[{"tta", "[", "lista", "]"}]}], ";", "\n", 
+       RowBox[{"leftDistance", " ", "=", " ", 
+        RowBox[{
+         RowBox[{"Mean", "[", 
+          RowBox[{"Cases", "[", 
+           RowBox[{"translated", ",", 
+            RowBox[{
+             RowBox[{"endiranLeftDistanceSensor", "[", "x_", "]"}], "\[Rule]",
+              "x"}]}], "]"}], "]"}], "//", "N"}]}], ";", "\n", 
+       RowBox[{"rightDistance", " ", "=", " ", 
+        RowBox[{
+         RowBox[{"Mean", "[", 
+          RowBox[{"Cases", "[", 
+           RowBox[{"translated", ",", 
+            RowBox[{
+             RowBox[{"endiranRightDistanceSensor", "[", "x_", "]"}], 
+             "\[Rule]", "x"}]}], "]"}], "]"}], "//", "N"}]}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"DatabinAdd", "[", 
+        RowBox[{"bin", ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"result", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], ",", 
+           RowBox[{"result", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], ",", "leftDistance", ",", 
+           "rightDistance"}], "}"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+      ",", "0"}], "]"}]}], "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.704190758999823*^9, 3.704190794643231*^9}, {
+   3.704190830248825*^9, 3.7041908395232162`*^9}, {3.704190891054358*^9, 
+   3.704190908849681*^9}, {3.7041909801633587`*^9, 3.704191011680332*^9}, {
+   3.704191082695962*^9, 3.704191101605383*^9}, {3.7041912124408903`*^9, 
+   3.704191248779603*^9}, 3.7041915332408113`*^9, {3.704191680037181*^9, 
+   3.7041916945221157`*^9}, 3.704192092271755*^9, {3.7041922736290197`*^9, 
+   3.704192275978757*^9}, {3.704192385938519*^9, 3.704192406695911*^9}, 
+   3.704192712872176*^9, 3.704193744238925*^9, {3.704193791597856*^9, 
+   3.7041937936087112`*^9}, 3.7050315460952463`*^9, 3.7050559408534946`*^9, {
+   3.705118856882874*^9, 3.705118861135984*^9}, {3.705903108189833*^9, 
+   3.705903109897931*^9}, 3.7059033672336493`*^9, {3.705903567063079*^9, 
+   3.705903567288092*^9}, {3.7059036216172*^9, 3.7059036475736847`*^9}, {
+   3.7059981118585567`*^9, 3.705998115474764*^9}, {3.7059981915541153`*^9, 
+   3.7059981920101414`*^9}, {3.7059982389778275`*^9, 3.7059982774170265`*^9}, 
+   3.707474194394903*^9, {3.707474813517394*^9, 3.707474813833297*^9}, {
+   3.707474958529015*^9, 3.7074749589628477`*^9}, {3.707475583859273*^9, 
+   3.707475596240595*^9}, {3.7077109907910967`*^9, 3.707710991160699*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Dynamic", "[", 
+  RowBox[{"doEverything", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.705031541151856*^9, 3.705031571872262*^9}, {
+  3.70511885229821*^9, 3.705118855053755*^9}, {3.7059031112510085`*^9, 
+  3.705903112642088*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Databin", "[", "bin", "]"}]], "Input"]
+}, Open  ]]
+},
+WindowSize->{1824, 920},
+WindowMargins->{{0, Automatic}, {0, Automatic}},
+Magnification:>1.3 Inherited,
+FrontEndVersion->"11.0 for Linux ARM (32-bit) (January 17, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[582, 22, 465, 6, 122, "Title"],
+Cell[1050, 30, 2142, 45, 184, "Input"],
+Cell[3195, 77, 101, 1, 41, "Text"],
+Cell[3299, 80, 108, 2, 41, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3444, 87, 307, 4, 122, "Title"],
+Cell[3754, 93, 293, 5, 41, "Text"],
+Cell[CellGroupData[{
+Cell[4072, 102, 994, 17, 41, "Input"],
+Cell[5069, 121, 17833, 352, 91, "Output"]
+}, Open  ]],
+Cell[22917, 476, 520, 8, 41, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23474, 489, 219, 3, 122, "Title"],
+Cell[23696, 494, 817, 20, 43, "Input"],
+Cell[24516, 516, 1301, 29, 43, "Input"],
+Cell[25820, 547, 368, 9, 98, "Input"],
+Cell[26191, 558, 810, 19, 41, "Input"],
+Cell[27004, 579, 929, 20, 41, "Input"],
+Cell[27936, 601, 905, 20, 41, "Input"],
+Cell[28844, 623, 1053, 22, 41, "Input"],
+Cell[29900, 647, 485, 14, 41, "Input"],
+Cell[30388, 663, 228, 4, 41, "Input"],
+Cell[30619, 669, 944, 22, 70, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[31600, 696, 117, 1, 122, "Title"],
+Cell[31720, 699, 144, 3, 41, "Input"],
+Cell[31867, 704, 152, 3, 41, "Input"],
+Cell[32022, 709, 1859, 40, 154, "Input"],
+Cell[33884, 751, 259, 5, 41, "Input"],
+Cell[34146, 758, 130, 2, 41, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34313, 765, 117, 1, 122, "Title"],
+Cell[34433, 768, 758, 19, 101, "Input"],
+Cell[35194, 789, 86, 2, 41, "Input"],
+Cell[35283, 793, 115, 2, 41, "Input"],
+Cell[35401, 797, 3165, 66, 296, "Input"],
+Cell[38569, 865, 259, 5, 41, "Input"],
+Cell[38831, 872, 62, 1, 41, "Input"]
+}, Open  ]]
+}
+]
+*)
+
