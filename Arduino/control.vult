@@ -13,6 +13,13 @@ fun sendControl(control, value) {
    _ = Serial_write(value);
 }
 
+fun average4(x0) {
+  mem x1, x2, x3;
+  val ret = (x0 + x1 + x2 + x3);
+  x1, x2, x3 = x0, x1, x2;
+  return ret;
+}
+
 fun processMessages() {
    mem state;
    mem control;
@@ -46,7 +53,11 @@ fun processMessages() {
 }
 
 fun moveMotor(id, value) {
-   val vel = int(abs(value));
+   
+   val vel = clip(int(abs(value)), 0, 200);
+ 
+vel = if vel < 10 then 0 else vel;
+
    if(id == 1) {
       val dir = value >= 0.0;
       _ = digitalWrite(5, dir);
@@ -109,7 +120,7 @@ and getDisplacement() {
 
 fun control(target, current) {
    mem i;
-   val ki = 0.0;
+   val ki = 0.00001;
    val kp = 1.0;
    val error = target - current;
    i = i + ki * error;
@@ -119,16 +130,17 @@ fun control(target, current) {
 // Main loop, handles the communication
 fun loop() {
    mem target_left, target_right;
-   mem speed1, speed2, speed3, speed4;
+   mem speed_left;
+   mem speed_right;
 
    // Process the incomming messages
    target_left, target_right = processMessages();
 
    // Send the value of the speed of each motor
-   _ = sendControl(0x20, int(abs(speed1)));
-   _ = sendControl(0x21, int(abs(speed2)));
-   _ = sendControl(0x22, int(abs(speed3)));
-   _ = sendControl(0x23, int(abs(speed4)));
+   _ = sendControl(0x20, int(abs(speed_left)));
+   _ = sendControl(0x21, int(abs(speed_left)));
+   _ = sendControl(0x22, int(abs(speed_right)));
+   _ = sendControl(0x23, int(abs(speed_right)));
 
 }
 
@@ -136,22 +148,18 @@ fun loop() {
 // the control actions
 and actuate() {
    // Get the displacements (speeds) of the wheels
-   speed1 = enc1:getDisplacement();
-   speed2 = enc2:getDisplacement();
-   speed3 = enc3:getDisplacement();
-   speed4 = enc4:getDisplacement();
+   speed_left = average4(enc1:getDisplacement());
+   speed_right = average4(enc2:getDisplacement());
 
+   val speed_multiplier = 6.0;
    // calculate the power to apply to the motors
-   val action1 = control(target_left, speed1);
-   val action2 = control(target_right, speed2);
-   val action3 = control(target_left, speed3);
-   val action4 = control(target_right, speed4);
-
-   // set the power to the motors
-   _ = moveMotor(1, action1);
-   _ = moveMotor(2, action2);
-   _ = moveMotor(3, action3);
-   _ = moveMotor(4, action4);
+   val action_left = control(target_left*speed_multiplier, speed_left);
+   val action_right = control(target_right*speed_multiplier, speed_right);
+ 
+    _ = moveMotor(1, action_left);
+   _ = moveMotor(2, action_right);
+   _ = moveMotor(3, action_left);
+   _ = moveMotor(4, action_right);
 }
 
 // Functions to handle the encoder interruptions
