@@ -155,8 +155,7 @@ and actuate() {
    // calculate the power to apply to the motors
    val action_left = control(target_left*speed_multiplier, speed_left);
    val action_right = control(target_right*speed_multiplier, speed_right);
- 
-    _ = moveMotor(1, action_left);
+   _ = moveMotor(1, action_left);
    _ = moveMotor(2, action_right);
    _ = moveMotor(3, action_left);
    _ = moveMotor(4, action_right);
