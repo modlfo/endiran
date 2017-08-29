@@ -12,6 +12,33 @@ At the outset of such a project, there are a number of important considerations 
 
 So how can I make a simple and cheap autonomous robot without needing to spend unnecessary money on software? 
 
-Do you want to know more about the project please go to: http://??? and read, like and share it.
+Do you want to know more about the project please go to: http://??? and read my blog, like and share it.
 
-I am writing this in the readme on Github: Special thanks to my good friend and colleague Leonardo Ruiz Laguna for the implementation help.
+Special thanks to my good friend and colleague Leonardo Ruiz Laguna for the implementation help.
+
+
+## Hard -and software
+
+For less than $200 you can build the robot with the following hardware:
+
+Raspberry Pi™ 3 Model B 1GB Project Board, running Raspberry Raspbian - estimated price $35.
+8MP Raspberry Pi™ Camera Module - $25
+Arduino Mega Development Board - $45.99
+Dagu Rover 5 Tracked Chassis with four Encoders - $60
+Rover 5 Motor Driver Board - $22
+
+You can use any motor or even a RC car together with the above mentioned hardware. Please note, the reason for using an 
+Arduino is that Endiran has four encoders and ultra-sonic sensors (available for new features in the future), and therefore 
+more inputs are needed compared to just using the Raspberry Pi. As Wolfram Mathematica is free on every Raspberry Pi and is 
+included in all Raspberry Raspbian installations it eliminates the need to spend money on different software platforms to 
+control the robot. The programing language also includes a host of powerful free tools for image processing and analysis as 
+well as a wide range of integrated machine learning capabilities. Furthermore, this powerful tool spares the effort of writing 
+advanced machine learning algorithms, as the algorithms are already built into the programing language.
+
+The Arduino is programmed using Vult. Vult is a simple open source programming language that makes easy to write signal processing code (like control systems) and generates efficient c++ code that can be run in an Arduino. The language is developed by my good friend and colleague Dr. Leonardo Ruiz Laguna. You can find more about the language on: https://modlfo.github.io/vult.
+
+In this Git repository all the software needed to run the robot are included.
+
+How to connect each component is illustrated on the figure below:
+
+![Endiran Hardware Connections Diagram](https://github.com/modlfo/endiran/blob/master/Wiki/Images/Endiran_Connection_Diagram.png)
