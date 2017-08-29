@@ -58,5 +58,6 @@ Well back to what the name for the robot should be: Destiny has spoken...
 
 Say hello to ENDIRAN :)
 
-![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiran.JPG)
+![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiranFrontView.JPG)
+![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiranSideView.JPG)
  
