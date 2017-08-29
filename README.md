@@ -42,3 +42,21 @@ In this Git repository all the software needed to run the robot are included.
 How to connect each component is illustrated on the figure below:
 
 ![Endiran Hardware Connections Diagram](https://github.com/modlfo/endiran/blob/master/Wiki/Images/Endiran_Connection_Diagram.png)
+
+
+## Say hello to ENDIRAN
+Constructing  a  robot  is  not  just  about  soldering  and  programming.  Nowadays,  you  have  to  come  up  with  a  suitable  name  as well. So the inescapable question posed itself: "What should I call my self-driving robot?”
+
+While tediously 3D-printing parts for my robot, an idea struck my mind - much like Newton's apple dropping down right smack
+in  the  middle  of  his  brilliant  head.  Pondering  why  my  parents  named  me  "Nimalendiran"  -  and  trust  me!  this  is  not  the  first time  I  have  thought  about  it,  since  almost  everyone  I  know  have  asked  me  the  same  question  -  a  plausible  answer  finally presented itself. According to the foremost authority on the subject - my parents - "Nimal" is the "real" name, and "endiran" is merely an extension, an "add-on" if you like. But why endiran?
+
+Finally I got it! In Tamil "Endiran" means "Robot". It seems like my parents knew right from their first peek into my cradle that I was destined to become an engineer within the field of robotics. Like Einstein's E=MC^2, I have reduced my insight to a simple equation:
+
+Nimal + Robot = Nimalendiran
+
+Well back to what the name for the robot should be: Destiny has spoken...
+
+Say hello to ENDIRAN :)
+
+![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiran.png)
+ 
