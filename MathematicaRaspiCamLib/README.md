@@ -2,31 +2,31 @@
 
 Clone the repository to your Raspberry Pi. Then, uncompress the files and compile:
 
-mkdir build
+`mkdir build`
 
-cd build
+`cd build`
 
-cmake ../
+`cmake ../`
 
-make
+`make`
 
-sudo make install
+`sudo make install`
 
-sudo ldconfig
+`sudo ldconfig`
 
 Check the install/lib folder for the mathematica camera lib file.
 
 # How to load camera library in Wolfram Mathematica.
 In order to laod the library in Mathematica execute the following commands in Mathematica (remember to replace the library URL):
 
-raspiCamLib = FindLibrary["/home/pi/Documents/github/endiran-build/MathematicaRaspiCamLib/libraspicam.so.0.1.6"];
+`raspiCamLib = FindLibrary["/home/pi/Documents/github/endiran-build/MathematicaRaspiCamLib/libraspicam.so.0.1.6"];`
 
-mathematicaCamLib = FindLibrary["/home/pi/Documents/github/endiran-build/MathematicaRaspiCamLib/libMathematicaRaspiCamLib.so"];
+`mathematicaCamLib = FindLibrary["/home/pi/Documents/github/endiran-build/MathematicaRaspiCamLib/libMathematicaRaspiCamLib.so"];`
 
-LibraryLoad[mathematicaCamLib]
+`LibraryLoad[mathematicaCamLib]`
 
-capture = LibraryFunctionLoad[mathematicaCamLib, "getImage_wrapper", {{"UTF8String"}, {Integer}, {Integer}}, LibraryDataType[Image]];
+`capture = LibraryFunctionLoad[mathematicaCamLib, "getImage_wrapper", {{"UTF8String"}, {Integer}, {Integer}}, LibraryDataType[Image]];`
 
 Test the camera :
 
-capture["RGB", 320, 160]
+`capture["RGB", 320, 160]`
