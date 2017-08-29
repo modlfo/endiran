@@ -21,11 +21,11 @@ Special thanks to my good friend and colleague Leonardo Ruiz Laguna for the impl
 
 For less than $200 you can build the robot with the following hardware:
 
-Raspberry Pi™ 3 Model B 1GB Project Board, running Raspberry Raspbian - estimated price $35.
-8MP Raspberry Pi™ Camera Module - $25
-Arduino Mega Development Board - $45.99
-Dagu Rover 5 Tracked Chassis with four Encoders - $60
-Rover 5 Motor Driver Board - $22
+1. Raspberry Pi™ 3 Model B 1GB Project Board, running Raspberry Raspbian - estimated price $35.
+2. 8MP Raspberry Pi™ Camera Module - $25
+3. Arduino Mega Development Board - $45.99
+4. Dagu Rover 5 Tracked Chassis with four Encoders - $60
+5. Rover 5 Motor Driver Board - $22
 
 You can use any motor or even a RC car together with the above mentioned hardware. Please note, the reason for using an 
 Arduino is that Endiran has four encoders and ultra-sonic sensors (available for new features in the future), and therefore 
@@ -58,5 +58,5 @@ Well back to what the name for the robot should be: Destiny has spoken...
 
 Say hello to ENDIRAN :)
 
-![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiran.png)
+![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiran.jpg)
  
