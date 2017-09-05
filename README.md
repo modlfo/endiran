@@ -1,6 +1,10 @@
-# Your autonomous and affordable Raspberry Pi robot is here - Easy to build, easy to use...
+# Endiran
 
-## Meet Endiran – your DIY simple open-source robotic solution
+### An autonomous robot based in the Raspberry Pi
+
+#### Author: Nimalendiran Kailasanatham
+
+## Introduction
 
 In the near future we will see autonomous cars on the roads. Actually we already have cars with autonomous capabilities such as parallel parking functions and systems that keep the car within the marked driving lanes etc. Many car manufactures, are investing in autonomous cars as it is going to be the future.
 
@@ -12,14 +16,12 @@ At the outset of such a project, there are a number of important considerations 
 
 So how can I make a simple and cheap autonomous robot without needing to spend unnecessary money on software? 
 
-Do you want to know more about the project please go to: http://??? and read my blog, like and share it.
-
 Special thanks to my good friend and colleague Leonardo Ruiz Laguna for the implementation help.
 
 
-## Hard -and software
+## Hardware and Software
 
-For less than $200 you can build the robot with the following hardware:
+The approximate cost of the parts necessary to buils Endiran is $200.
 
 1. Raspberry Pi™ 3 Model B 1GB Project Board, running Raspberry Raspbian - estimated price $35.
 2. 8MP Raspberry Pi™ Camera Module - $25
@@ -29,22 +31,28 @@ For less than $200 you can build the robot with the following hardware:
 
 You can use any motor or even a RC car together with the above mentioned hardware. Please note, the reason for using an 
 Arduino is that Endiran has four encoders and ultra-sonic sensors (available for new features in the future), and therefore 
-more inputs are needed compared to just using the Raspberry Pi. As Wolfram Mathematica is free on every Raspberry Pi and is 
-included in all Raspberry Raspbian installations it eliminates the need to spend money on different software platforms to 
-control the robot. The programing language also includes a host of powerful free tools for image processing and analysis as 
+more inputs are needed compared to just using the Raspberry Pi. 
+
+The brain of Endiran is developed in Wolfram Mathematica, which is included on every Raspberry Pi. The programing language also includes a host of powerful free tools for image processing and analysis as 
 well as a wide range of integrated machine learning capabilities. Furthermore, this powerful tool spares the effort of writing 
 advanced machine learning algorithms, as the algorithms are already built into the programing language.
 
 The Arduino is programmed using Vult. Vult is a simple open source programming language that makes easy to write signal processing code (like control systems) and generates efficient c++ code that can be run in an Arduino. The language is developed by my good friend and colleague Dr. Leonardo Ruiz Laguna. You can find more about the language on: https://modlfo.github.io/vult.
 
-In this Git repository all the software needed to run the robot are included.
+This repository contains all the code of Endiran clasified in the following directories:
 
-How to connect each component is illustrated on the figure below:
+1. [Arduino](https://github.com/modlfo/endiran/tree/master/Arduino): The control program running in the Arduino Mega.
+2. [MachineLearning](https://github.com/modlfo/endiran/tree/master/MachineLearning): The Mathematica code to control, and train the robot.
+3. [MathematicaRaspiCamLib](https://github.com/modlfo/endiran/tree/master/MathematicaRaspiCamLib): Mathematica bindings for the [RaspiCamLib](https://github.com/cedricve/raspicam.git) used to control the camera.
 
-![Endiran Hardware Connections Diagram](https://github.com/modlfo/endiran/blob/master/Wiki/Images/Endiran_Connection_Diagram.png)
+The following diagram shows how the different components are conencted:
 
 
-## Say hello to ENDIRAN
+![Endiran Hardware Connections Diagram](https://github.com/modlfo/endiran/blob/master/Wiki/Images/Endiran_Connection_Diagram.png?raw=true)
+
+
+## Endiran?
+
 Constructing  a  robot  is  not  just  about  soldering  and  programming.  Nowadays,  you  have  to  come  up  with  a  suitable  name  as well. So the inescapable question posed itself: "What should I call my self-driving robot?”
 
 While tediously 3D-printing parts for my robot, an idea struck my mind - much like Newton's apple dropping down right smack
@@ -56,8 +64,8 @@ Nimal + Robot = Nimalendiran
 
 Well back to what the name for the robot should be: Destiny has spoken...
 
-Say hello to ENDIRAN :)
+Say hello to Endiran :)
 
-![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiranFrontView.JPG)
-![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiranSideView.JPG)
+![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiranFrontView.JPG?raw=true)
+![Endiran](https://github.com/modlfo/endiran/blob/master/Wiki/Images/endiranSideView.JPG?raw=true)
  
